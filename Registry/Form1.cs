@@ -22,6 +22,8 @@ using Registry.Database.Config;
 using Registry.Forms;
 using Registry.Properties;
 using FormFactor = Registry.Classes.Components.Motherboard.FormFactor;
+//VÁLTOZÁS
+
 
 namespace Registry
 {
