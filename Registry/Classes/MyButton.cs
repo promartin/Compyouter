@@ -43,25 +43,33 @@ namespace Registry.Classes
 
         private Button[] CustomButtons()
         {
-            Button delete = new Button();
-            delete.Name = "delete";
-            delete.Location = new Point(this.Size.Width - 22, 2);
-            delete.Size = new Size(20, 20);
-            delete.FlatStyle = FlatStyle.Flat;
-            delete.FlatAppearance.BorderSize = 0;
-            delete.BackColor = Color.Transparent;
-            delete.FlatAppearance.MouseOverBackColor = hilited;
-            delete.FlatAppearance.BorderSize = 0;
+            Button delete = new Button()
+            {
+                Name = "delete",
+                Location = new Point(this.Size.Width - 22, 2),
+                Size = new Size(20, 20),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.Transparent,
+                FlatAppearance =
+                {
+                    BorderSize = 0,
+                    MouseOverBackColor = hilited
+                }
+            };
 
-            Button customize = new Button();
-            customize.Name = "customize";
-            customize.Location = new Point(delete.Left - 20, delete.Top);
-            customize.Size = new Size(20, 20);
-            customize.FlatStyle = FlatStyle.Flat;
-            customize.FlatAppearance.BorderSize = 0;
-            customize.BackColor = Color.Transparent;
-            customize.FlatAppearance.MouseOverBackColor = hilited;
-            customize.FlatAppearance.BorderSize = 0;
+            Button customize = new Button()
+            {
+                Name = "customize",
+                Location = new Point(delete.Left - 20, delete.Top),
+                Size = new Size(20, 20),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.Transparent,
+                FlatAppearance =
+                {
+                    BorderSize = 0,
+                    MouseOverBackColor = hilited
+                }
+            };
 
             return new Button[] { delete, customize };
         }

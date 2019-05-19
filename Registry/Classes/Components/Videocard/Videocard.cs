@@ -33,7 +33,6 @@ namespace Registry.Classes.Components.Videocard
         private double gb;
         private Design design;
         private int tdp;
-        private int pcieConnector;
         private int videoCardLength;
 
         public double Gb
@@ -218,11 +217,7 @@ namespace Registry.Classes.Components.Videocard
             }
         }
 
-        public int PcieConnector
-        {
-            get => pcieConnector;
-            set => pcieConnector = value;
-        }
+        public int PcieConnector { get; set; }
 
         public Videocard(string manufacturer, string productsName, string serialNumber, int price, DateTime dateOfPurchase, DateTime dateOfAdd, DateTime warranty, string text, double gb, Design design, int tdp, int pcieConnector, int videoCardLength) : base(manufacturer, productsName, serialNumber, price, dateOfPurchase, dateOfAdd, warranty, text)
         {

@@ -1341,62 +1341,7 @@ namespace Registry
             //Check if component is compatible with the selected components
             int sata = 0;
             int m2 = 0;
-
-            if (flowLayoutPanel1.Controls[0].Tag is Videocard || flowLayoutPanel1.Controls[0].Tag is RAM || flowLayoutPanel1.Controls[0].Tag is SSD || flowLayoutPanel1.Controls[0].Tag is HDD)
-            {
-                if (numberOfSelectedButtons == null)
-                {
-                    if (flowLayoutPanel1.Controls.Count == 1)
-                    {
-                        quantity = 1;
-                        numberOfSelectedButtons = 0;
-                    }
-                    else
-                    {
-                        bool isItNumber = true;
-                        do
-                        {
-                            string component = "";
-                            if (flowLayoutPanel1.Controls[0].Tag.GetType() == typeof(Videocard))
-                            {
-                                component = "videocards";
-                            }
-                            else if (flowLayoutPanel1.Controls[0].Tag.GetType() == typeof(RAM))
-                            {
-                                component = "RAMs";
-                            }
-                            else if (flowLayoutPanel1.Controls[0].Tag.GetType() == typeof(Storage))
-                            {
-                                component = "storages";
-                            }
-
-                            quantityForm form = new quantityForm("Quantity", $"How many {component} do you want to choose?");
-                            if (form.ShowDialog() == DialogResult.OK)
-                            {
-                                if (flowLayoutPanel1.Controls.Count < form.Quantity)
-                                {
-                                    MessageBox.Show(
-                                        $"There is only {flowLayoutPanel1.Controls.Count} components to choose from!",
-                                        "Please give number less or equal to the number of components!");
-                                    isItNumber = false;
-                                }
-                                else
-                                {
-                                    quantity = form.Quantity;
-                                    isItNumber = true;
-                                }
-                            }
-                            else
-                            {
-                                createComputerButton.PerformClick();
-                                return;
-                            }
-                        } while (!isItNumber);
-
-                        numberOfSelectedButtons = 0;
-                    }
-                }
-            }
+            int badButton = 0;
 
             for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
             {
@@ -1551,6 +1496,7 @@ namespace Registry
                         flowLayoutPanel1.Controls[i].Name = "badButton";
                         flowLayoutPanel1.Controls[i].MouseHover += componentIsBad;
                         flowLayoutPanel1.Controls[i].MouseLeave += componentIsBadLeave;
+                        badButton++;
                     }
                     else
                     {
@@ -1558,6 +1504,71 @@ namespace Registry
                     }
 
                     flowLayoutPanel1.Controls[i].Controls.Clear();
+                }
+            }
+
+            if (flowLayoutPanel1.Controls[0].Tag is Videocard || flowLayoutPanel1.Controls[0].Tag is RAM || flowLayoutPanel1.Controls[0].Tag is SSD || flowLayoutPanel1.Controls[0].Tag is HDD)
+            {
+                if (numberOfSelectedButtons == null)
+                {
+                    if (flowLayoutPanel1.Controls.Count == 1 || flowLayoutPanel1.Controls.Count - badButton == 1)
+                    {
+                        quantity = 1;
+                        numberOfSelectedButtons = 0;
+                    }
+                    else
+                    {
+                        bool isItNumber = true;
+                        do
+                        {
+                            string a = flowLayoutPanel1.Controls[0].Tag.GetType().ToString();
+                            string component = "";
+                            if (flowLayoutPanel1.Controls[0].Tag is Videocard)
+                            {
+                                component = "videocards";
+                            }
+                            else if (flowLayoutPanel1.Controls[0].Tag is RAM)
+                            {
+                                component = "RAMs";
+                            }
+                            else if (flowLayoutPanel1.Controls[0].Tag is Storage)
+                            {
+                                component = "storages";
+                            }
+
+                            quantityForm form = new quantityForm("Quantity", $"How many {component} do you want to choose?");
+                            if (form.ShowDialog() == DialogResult.OK)
+                            {
+                                if (flowLayoutPanel1.Controls.Count < form.Quantity)
+                                {
+                                    MessageBox.Show(
+                                        $"There is only {flowLayoutPanel1.Controls.Count} components to choose from!",
+                                        "Please give number less or equal to the number of components!");
+                                    isItNumber = false;
+                                }
+                                else if (flowLayoutPanel1.Controls.Count - badButton < form.Quantity)
+                                {
+                                    MessageBox.Show(
+                                        $"That is because there are {badButton} bad components!",
+                                        $"You can only choose from {flowLayoutPanel1.Controls.Count - badButton} components!");
+                                    isItNumber = false;
+                                }
+                                else
+                                {
+                                    quantity = form.Quantity;
+                                    badButton = 0;
+                                    isItNumber = true;
+                                }
+                            }
+                            else
+                            {
+                                createComputerButton.PerformClick();
+                                return;
+                            }
+                        } while (!isItNumber);
+
+                        numberOfSelectedButtons = 0;
+                    }
                 }
             }
         }
@@ -1597,8 +1608,6 @@ namespace Registry
                 (sender as Button).BackColor = ColorTranslator.FromHtml("#64389eed");
                 numberOfSelectedButtons++;
             }
-
-
 
             for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
             {
@@ -2072,19 +2081,19 @@ namespace Registry
             }
         }
 
-        //JAVÍTSD!
-        private int searchFocus;
+        //SEARCH DOESN'T WORK AS INTENDED, FIX IT!
+        private bool searchFocus;
         private void SearchGotFocus(object sender, EventArgs e)
         {
-            ++searchFocus;
+            searchFocus = true;
         }
         private void SearchLostFocus(object sender, EventArgs e)
         {
-            --searchFocus;
+            searchFocus = false;
         }
         private void FlowLayoutPanel1_ControlChanged(object sender, ControlEventArgs e)
         {
-            if (searchFocus == 0 || sender == null)
+            if (searchFocus || sender == null)
             {
                 savedFlowLayoutPanelControls = new List<MyButton>();
                 int a = flowLayoutPanel1.Controls.Count;
@@ -2186,10 +2195,5 @@ namespace Registry
 
 
 /* 
- * Számítógéphez DoubleClick eventet össze hozni egy másik formba (455-ÖS SOR!), ahol a benne lévő componensek jelennek meg --> ComputerBuildForm (teszt régió) (Search&Sort!!!)
- * Számítógépet az adatbázisba tenni
- * Kihúzni az elemeket bárhova, amit egy XML vagy CSV fájlba lement, és ezeket akár be lehessen olvasni ugyan úgy vissza fele
- * Fiókokat csinálni ---> adatbázis és felhasználó class felépítése ---> bejelentkezési/regisztrációs form
- * Create computer régió tisztogatása ---> Asynchronous programming???
  * STYLECOP!
  */

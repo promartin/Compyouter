@@ -33,20 +33,9 @@ namespace Registry.Classes.Components.Processors
 
     class IntelProcessor : Processor
     {
-        private IntelSocket intelSocket;
-        private string integratedGraphics;
+        public string IntegratedGraphics { get; set; }
 
-        public string IntegratedGraphics
-        {
-            get => integratedGraphics;
-            set => integratedGraphics = value;
-        }
-
-        internal IntelSocket IntelSocket
-        {
-            get => intelSocket;
-            set => intelSocket = value;
-        }
+        internal IntelSocket IntelSocket { get; set; }
 
         public IntelProcessor(string manufacturer, string productsName, string serialNumber, int price, DateTime dateOfPurchase, DateTime dateOfAdd, DateTime warranty, string text, double l2Cache, double l3Cache, int cores, int threads, int process, int frequency, int turboFrequency, int tdp, IntelSocket intelSocket, string integratedGraphics) : base(manufacturer, productsName, serialNumber, price, dateOfPurchase, dateOfAdd, warranty, text, l2Cache, l3Cache, cores, threads, process, frequency, turboFrequency, tdp)
         {
@@ -56,7 +45,7 @@ namespace Registry.Classes.Components.Processors
 
         public override string ToString()
         {
-            return base.ToString() + $"{intelSocket}";
+            return base.ToString() + $"{IntelSocket}";
         }
     }
 }

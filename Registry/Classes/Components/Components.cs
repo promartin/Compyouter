@@ -14,11 +14,7 @@ namespace Registry.Classes.Components
         private string manufacturer;
         private string productName;
         private int price;
-        private string serialNumber;
-        private DateTime dateOfPurchase;
-        private DateTime dateOfAdd;
         private DateTime warranty;
-        private string text;
 
         public string Manufacturer
         {
@@ -69,23 +65,11 @@ namespace Registry.Classes.Components
             }
         }
 
-        public string SerialNumber
-        {
-            get => serialNumber;
-            set => serialNumber = value;
-        }
+        public string SerialNumber { get; set; }
 
-        public DateTime DateOfPurchase
-        {
-            get => dateOfPurchase;
-            set => dateOfPurchase = value;
-        }
+        public DateTime DateOfPurchase { get; set; }
 
-        public DateTime DateOfAdd
-        {
-            get => dateOfAdd;
-            set => dateOfAdd = value;
-        }
+        public DateTime DateOfAdd { get; set; }
 
         public DateTime Warranty
         {
@@ -116,11 +100,7 @@ namespace Registry.Classes.Components
             }
         }
 
-        public string Text
-        {
-            get => text;
-            set => text = value;
-        }
+        public string Text { get; set; }
 
         protected Components(string manufacturer, string productsName, string serialNumber, int price, DateTime dateOfPurchase, DateTime dateOfAdd, DateTime warranty, string text)
         {

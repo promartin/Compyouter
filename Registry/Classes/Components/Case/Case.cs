@@ -25,36 +25,20 @@ namespace Registry.Classes.Components.Case
 
     class Case : Components
     {
-        private bool bottomSupply;
-        private CaseFormFactor caseFormFactor;
         private bool atx;
         private bool eatx;
         private bool microATX;
         private bool miniITX;
         private bool miniSTX;
         private bool thinMiniITX;
-        private int hddSpace;
-        private int slimHDDspace;
         private int cpuHeatSinkHeight;
         private int videoCardLength;
 
-        public bool BottomSupply
-        {
-            get => bottomSupply;
-            set => bottomSupply = value;
-        }
+        public bool BottomSupply { get; set; }
 
-        public int HddSpace
-        {
-            get => hddSpace;
-            set => hddSpace = value;
-        }
+        public int HddSpace { get; set; }
 
-        public int SlimHDDspace
-        {
-            get => slimHDDspace;
-            set => slimHDDspace = value;
-        }
+        public int SlimHDDspace { get; set; }
 
         public int CpuHeatSinkHeight
         {
@@ -88,18 +72,14 @@ namespace Registry.Classes.Components.Case
             }
         }
 
-        internal CaseFormFactor CaseFormFactor
-        {
-            get => caseFormFactor;
-            set => caseFormFactor = value;
-        }
+        internal CaseFormFactor CaseFormFactor { get; set; }
 
         public bool Atx
         {
             get => atx;
             set
             {
-                if (caseFormFactor == CaseFormFactor.ATX)
+                if (CaseFormFactor == CaseFormFactor.ATX)
                 {
                     atx = true;
                 }
@@ -115,7 +95,7 @@ namespace Registry.Classes.Components.Case
             get => eatx;
             set
             {
-                if (caseFormFactor == CaseFormFactor.EATX)
+                if (CaseFormFactor == CaseFormFactor.EATX)
                 {
                     eatx = true;
                 }
@@ -131,7 +111,7 @@ namespace Registry.Classes.Components.Case
             get => microATX;
             set
             {
-                if (caseFormFactor == CaseFormFactor.MicroATX)
+                if (CaseFormFactor == CaseFormFactor.MicroATX)
                 {
                     microATX = true;
                 }
@@ -147,7 +127,7 @@ namespace Registry.Classes.Components.Case
             get => miniITX;
             set
             {
-                if (caseFormFactor == CaseFormFactor.MiniITX)
+                if (CaseFormFactor == CaseFormFactor.MiniITX)
                 {
                     miniITX = true;
                 }
@@ -163,7 +143,7 @@ namespace Registry.Classes.Components.Case
             get => miniSTX;
             set
             {
-                if (caseFormFactor == CaseFormFactor.MiniSTX)
+                if (CaseFormFactor == CaseFormFactor.MiniSTX)
                 {
                     miniSTX = true;
                 }
@@ -179,7 +159,7 @@ namespace Registry.Classes.Components.Case
             get => thinMiniITX;
             set
             {
-                if (caseFormFactor == CaseFormFactor.ThinMiniITX)
+                if (CaseFormFactor == CaseFormFactor.ThinMiniITX)
                 {
                     thinMiniITX = true;
                 }
@@ -201,7 +181,7 @@ namespace Registry.Classes.Components.Case
             miniSTX = miniStx;
             thinMiniITX = thinMiniItx;
             HddSpace = hddSpace;
-            slimHDDspace = slimHdDspace;
+            SlimHDDspace = slimHdDspace;
             CpuHeatSinkHeight = cpuHeatSinkHeight;
             VideoCardLength = videoCardLength;
         }

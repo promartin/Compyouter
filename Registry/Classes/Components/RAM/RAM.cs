@@ -17,18 +17,10 @@ namespace Registry.Classes.Components.RAM
     class RAM : Components
     {
         private RAMGeneration ramGeneration;
-        private int size;
         private int frequency;
         private int latency;
-        private int pieces;
-        private bool ecc;
-        private bool rgb;
 
-        public int Size
-        {
-            get => size;
-            set => size = value;
-        }
+        public int Size { get; set; }
 
         public int Frequency
         {
@@ -62,23 +54,11 @@ namespace Registry.Classes.Components.RAM
             }
         }
 
-        public int Pieces
-        {
-            get => pieces;
-            set => pieces = value;
-        }
+        public int Pieces { get; set; }
 
-        public bool Ecc
-        {
-            get => ecc;
-            set => ecc = value;
-        }
+        public bool Ecc { get; set; }
 
-        public bool Rgb
-        {
-            get => rgb;
-            set => rgb = value;
-        }
+        public bool Rgb { get; set; }
 
         internal RAMGeneration RamGeneration
         {
@@ -145,7 +125,7 @@ namespace Registry.Classes.Components.RAM
 
         public override string ToString()
         {
-            return base.ToString() + $"{ramGeneration} {size} {frequency}";
+            return base.ToString() + $"{ramGeneration} {Size} {frequency}";
         }
     }
 }

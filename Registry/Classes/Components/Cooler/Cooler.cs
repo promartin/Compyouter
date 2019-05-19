@@ -10,70 +10,25 @@ namespace Registry.Classes.Components.Cooler
 
     class Cooler : Components
     {
-        private bool lga1151;
-        private bool lga2066;
-        private bool lga2011;
-        private bool lga1366;
-        private bool lga775;
-        private bool fm122plus3plus;
-        private bool am4;
-        private bool aM22plus33plus;
-        private bool tr4;
         private int height;
 
-        public bool Lga1151
-        {
-            get => lga1151;
-            set => lga1151 = value;
-        }
+        public bool Lga1151 { get; set; }
 
-        public bool Lga2066
-        {
-            get => lga2066;
-            set => lga2066 = value;
-        }
+        public bool Lga2066 { get; set; }
 
-        public bool Lga2011
-        {
-            get => lga2011;
-            set => lga2011 = value;
-        }
+        public bool Lga2011 { get; set; }
 
-        public bool Lga1366
-        {
-            get => lga1366;
-            set => lga1366 = value;
-        }
+        public bool Lga1366 { get; set; }
 
-        public bool Lga775
-        {
-            get => lga775;
-            set => lga775 = value;
-        }
+        public bool Lga775 { get; set; }
 
-        public bool Fm122plus3plus
-        {
-            get => fm122plus3plus;
-            set => fm122plus3plus = value;
-        }
+        public bool Fm122plus3plus { get; set; }
 
-        public bool Am4
-        {
-            get => am4;
-            set => am4 = value;
-        }
+        public bool Am4 { get; set; }
 
-        public bool AM22plus33plus
-        {
-            get => aM22plus33plus;
-            set => aM22plus33plus = value;
-        }
+        public bool AM22plus33plus { get; set; }
 
-        public bool Tr4
-        {
-            get => tr4;
-            set => tr4 = value;
-        }
+        public bool Tr4 { get; set; }
 
         public int Height
         {

@@ -86,111 +86,39 @@ namespace Registry.Classes.Components.Motherboard
 
     class Motherboard : Components
     {
-        private FormFactor formFactor;
-        private Socket socket;
-        private MemoryGeneration memoryGeneration;
-        private bool crossfire;
-        private bool sli;
-        private bool bluetooth;
-        private bool wifi;
-        private int m2x4Number;
-        private int memorySlots;
-        private int maxMemorySize;
-        private int pciE_x16_Slots;
-        private int pciE_x4_Slots;
-        private int pciE_x1_Slots;
-        private int sata3Connectors;
-        private int usb30;
-        private int usb31;
-        private int lan;
+        public bool Crossfire { get; set; }
 
-        public bool Crossfire
-        {
-            get => crossfire;
-            set => crossfire = value;
-        }
+        public bool Sli { get; set; }
 
-        public bool Sli
-        {
-            get => sli;
-            set => sli = value;
-        }
+        public bool Bluetooth { get; set; }
 
-        public bool Bluetooth
-        {
-            get => bluetooth;
-            set => bluetooth = value;
-        }
-        public bool Wifi
-        {
-            get => wifi;
-            set => wifi = value;
-        }
-        public int M2x4Number
-        {
-            get => m2x4Number;
-            set => m2x4Number = value;
-        }
-        public int MemorySlots
-        {
-            get => memorySlots;
-            set => memorySlots = value;
-        }
-        public int MaxMemorySize
-        {
-            get => maxMemorySize;
-            set => maxMemorySize = value;
-        }
-        public int PciE_x16_Slots
-        {
-            get => pciE_x16_Slots;
-            set => pciE_x16_Slots = value;
-        }
-        public int PciE_x4_Slots
-        {
-            get => pciE_x4_Slots;
-            set => pciE_x4_Slots = value;
-        }
-        public int PciE_x1_Slots
-        {
-            get => pciE_x1_Slots;
-            set => pciE_x1_Slots = value;
-        }
-        public int Sata3Connectors
-        {
-            get => sata3Connectors;
-            set => sata3Connectors = value;
-        }
-        public int Usb30
-        {
-            get => usb30;
-            set => usb30 = value;
-        }
-        public int Usb31
-        {
-            get => usb31;
-            set => usb31 = value;
-        }
-        public int Lan
-        {
-            get => lan;
-            set => lan = value;
-        }
-        internal FormFactor FormFactor
-        {
-            get => formFactor;
-            set => formFactor = value;
-        }
-        internal Socket Socket
-        {
-            get => socket;
-            set => socket = value;
-        }
-        internal MemoryGeneration MemoryGeneration
-        {
-            get => memoryGeneration;
-            set => memoryGeneration = value;
-        }
+        public bool Wifi { get; set; }
+
+        public int M2x4Number { get; set; }
+
+        public int MemorySlots { get; set; }
+
+        public int MaxMemorySize { get; set; }
+
+        public int PciE_x16_Slots { get; set; }
+
+        public int PciE_x4_Slots { get; set; }
+
+        public int PciE_x1_Slots { get; set; }
+
+        public int Sata3Connectors { get; set; }
+
+        public int Usb30 { get; set; }
+
+        public int Usb31 { get; set; }
+
+        public int Lan { get; set; }
+
+        internal FormFactor FormFactor { get; set; }
+
+        internal Socket Socket { get; set; }
+
+        internal MemoryGeneration MemoryGeneration { get; set; }
 
         public Motherboard(string manufacturer, string productsName, string serialNumber, int price, DateTime dateOfPurchase, DateTime dateOfAdd, DateTime warranty, string text, FormFactor formFactor, Socket socket, MemoryGeneration memoryGeneration, bool crossfire, bool sli, bool bluetooth, bool wifi, int m2X4Number, int memorySlots, int maxMemorySize, int pciEX16Slots, int pciEX4Slots, int pciEX1Slots, int sata3Connectors, int usb30, int usb31, int lan) : base(manufacturer, productsName, serialNumber, price, dateOfPurchase, dateOfAdd, warranty, text)
         {
@@ -201,12 +129,12 @@ namespace Registry.Classes.Components.Motherboard
             Sli = sli;
             Bluetooth = bluetooth;
             Wifi = wifi;
-            m2x4Number = m2X4Number;
+            M2x4Number = m2X4Number;
             MemorySlots = memorySlots;
             MaxMemorySize = maxMemorySize;
-            pciE_x16_Slots = pciEX16Slots;
-            pciE_x4_Slots = pciEX4Slots;
-            pciE_x1_Slots = pciEX1Slots;
+            PciE_x16_Slots = pciEX16Slots;
+            PciE_x4_Slots = pciEX4Slots;
+            PciE_x1_Slots = pciEX1Slots;
             Sata3Connectors = sata3Connectors;
             Usb30 = usb30;
             Usb31 = usb31;

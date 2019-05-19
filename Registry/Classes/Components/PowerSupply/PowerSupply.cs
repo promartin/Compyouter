@@ -32,54 +32,19 @@ namespace Registry.Classes.Components.PowerSupply
 
     class PowerSupply : Components
     {
-        private int output;
-        private Efficency efficency;
-        private int sata;
-        private int pcie;
-        private int molex;
-        private bool modular;
-        private FormFactor formFactor;
+        public int Output { get; set; }
 
-        public int Output
-        {
-            get => output;
-            set => output = value;
-        }
+        public int Sata { get; set; }
 
-        public int Sata
-        {
-            get => sata;
-            set => sata = value;
-        }
+        public int Molex { get; set; }
 
-        public int Molex
-        {
-            get => molex;
-            set => molex = value;
-        }
+        public bool Modular { get; set; }
 
-        public bool Modular
-        {
-            get => modular;
-            set => modular = value;
-        }
+        internal FormFactor FormFactor { get; set; }
 
-        internal FormFactor FormFactor
-        {
-            get => formFactor;
-            set => formFactor = value;
-        }
+        internal Efficency Efficency { get; set; }
 
-        internal Efficency Efficency
-        {
-            get => efficency;
-            set => efficency = value;
-        }
-        public int Pcie
-        {
-            get => pcie;
-            set => pcie = value;
-        }
+        public int Pcie { get; set; }
 
         public PowerSupply(string manufacturer, string productsName, string serialNumber, int price, DateTime dateOfPurchase, DateTime dateOfAdd, DateTime warranty, string text, int output, Efficency efficency, int sata, int pcie, int molex, bool modular, FormFactor formFactor) : base(manufacturer, productsName, serialNumber, price, dateOfPurchase, dateOfAdd, warranty, text)
         {

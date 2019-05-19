@@ -35,14 +35,9 @@ namespace Registry.Classes.Components.Processors
 
     class AMDProcessor : Processor
     {
-        private AMDSocket amdSocket;
         private string integratedGraphics;
 
-        internal AMDSocket AmdSocket
-        {
-            get => amdSocket;
-            set => amdSocket = value;
-        }
+        internal AMDSocket AmdSocket { get; set; }
 
         public string IntegratedGraphics
         {
@@ -80,7 +75,7 @@ namespace Registry.Classes.Components.Processors
 
         public override string ToString()
         {
-            return base.ToString() + $"{amdSocket}";
+            return base.ToString() + $"{AmdSocket}";
         }
     }
 }

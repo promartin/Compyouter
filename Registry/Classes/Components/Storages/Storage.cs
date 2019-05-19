@@ -37,22 +37,12 @@ namespace Registry.Classes.Components.Storages
 
     abstract class Storage : Components
     {
-        private int gb;
         private ConnectorType connectorType;
-        private int condition;
         private StorageSize Size;
 
-        public int Gb
-        {
-            get => gb;
-            set => gb = value;
-        }
+        public int Gb { get; set; }
 
-        public int Condition
-        {
-            get => condition;
-            set => condition = value;
-        }
+        public int Condition { get; set; }
 
         internal ConnectorType ConnectorType
         {
