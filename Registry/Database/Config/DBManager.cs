@@ -14,6 +14,7 @@ using Registry.Classes.Components.RAM;
 using Registry.Classes.Components.Storages;
 using Registry.Classes.Components.Videocard;
 using Registry.Classes.Computer;
+using Registry.Classes.Users;
 using FormFactor = Registry.Classes.Components.Motherboard.FormFactor;
 
 namespace Registry.Database.Config
@@ -23,14 +24,24 @@ namespace Registry.Database.Config
         private static SqlConnection connection;
         private static SqlCommand command;
 
-        static void Connect()
+        static void Connect(bool componentsOrUsers)
         {
             try
             {
-                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
-                connection.Open();
-                command = new SqlCommand();
-                command.Connection = connection;
+                if (componentsOrUsers)
+                {
+                    connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Components"].ConnectionString);
+                    connection.Open();
+                    command = new SqlCommand();
+                    command.Connection = connection;
+                }
+                else
+                {
+                    connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Userss"].ConnectionString);
+                    connection.Open();
+                    command = new SqlCommand();
+                    command.Connection = connection;
+                }
             }
             catch (Exception e)
             {
@@ -40,7 +51,7 @@ namespace Registry.Database.Config
 
         internal static void Insert(Components component)
         {
-            Connect();
+            Connect(true);
             SqlTransaction transaction = null;
 
             try
@@ -240,7 +251,7 @@ namespace Registry.Database.Config
 
         internal static void Insert(Computer computer)
         {
-            Connect();
+            Connect(true);
             SqlTransaction transaction = null;
 
             try
@@ -291,7 +302,6 @@ namespace Registry.Database.Config
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
                 transaction.Commit();
-                Disconnect();
 
                 string GetIdsOfList(List<Components> computerParts)
                 {
@@ -315,14 +325,104 @@ namespace Registry.Database.Config
 
             Disconnect();
         }
+
+        internal static void Register(User registerUser)
+        {
+            Connect(false);
+            SqlTransaction transaction = null;
+
+            try
+            {
+                command.Parameters.Clear();
+                transaction = connection.BeginTransaction("Register");
+                command.Transaction = transaction;
+
+                command.CommandText = "SELECT COUNT([userId]) FROM [Users] WHERE [userName] = @userName";
+                command.Parameters.AddWithValue("@userName", registerUser.UserName);
+                int usersWithThisName = (int) command.ExecuteScalar();
+
+                if (usersWithThisName == 0)
+                {
+                    command.Parameters.Clear();
+
+                    command.CommandText = "SELECT COUNT([userId]) FROM [Users] WHERE email = @email";
+                    command.Parameters.AddWithValue("@email", registerUser.Email);
+                    int usersWithThisEmail = (int)command.ExecuteScalar();
+
+                    if (usersWithThisEmail == 0)
+                    {
+                        command.Parameters.Clear();
+
+                        command.CommandText =
+                            "INSERT INTO [Users] VALUES (@userName, @email, @password)";
+                        command.Parameters.AddWithValue("@userName", registerUser.UserName);
+                        command.Parameters.AddWithValue("@email", registerUser.Email);
+                        command.Parameters.AddWithValue("@password", PasswordHash.HashPassword(registerUser.Password));
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        throw new ArgumentException("This E-mail is already in use!");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("This username is in use!");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+
+            Disconnect();
+        }
+
+        internal static User Login(User loginUser)
+        {
+            Connect(false);
+            SqlTransaction transaction = null;
+
+            try
+            {
+                command.Parameters.Clear();
+                transaction = connection.BeginTransaction("Login");
+                command.Transaction = transaction;
+
+                command.CommandText =
+                    "SELECT [userName], [email], [userId] FROM [Users] WHERE [userName] = @userName AND [password] = @password";
+                command.Parameters.AddWithValue("@userName", loginUser.UserName);
+                command.Parameters.AddWithValue("@password", PasswordHash.ValidatePassword(loginUser.Password, PasswordHash.HashPassword(loginUser.Password)));
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return new User((string) reader[0], (string) reader[1], (string) reader[2]);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Login error!", e);
+            }
+
+            return null;
+        }
         internal static List<Components> Read()
         {
-            Connect();
+            Connect(true);
+            SqlTransaction transaction = null;
             List<Components> components = new List<Components>();
 
             try
             {
                 command.Parameters.Clear();
+                transaction = connection.BeginTransaction("Read");
+                command.Transaction = transaction;
 
                 #region AMDProcessor
                 //Everything from AMDProcessor
@@ -462,7 +562,7 @@ namespace Registry.Database.Config
 
         internal static Components ReadCucc()
         {
-            Connect();
+            Connect(true);
             Components components = null;
 
             try
@@ -491,7 +591,7 @@ namespace Registry.Database.Config
 
         internal static void Modification(Components editComponent, Components toThisComponent)
         {
-            Connect();
+            Connect(true);
             SqlTransaction transaction = null;
 
             try
@@ -636,7 +736,7 @@ namespace Registry.Database.Config
                     command.Parameters.AddWithValue("@tr4", (toThisComponent as Cooler).Tr4 ? 1 : 0);
                     command.Parameters.AddWithValue("@height", (toThisComponent as Cooler).Height);
                 }
-                
+
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
                 transaction.Commit();
@@ -652,7 +752,7 @@ namespace Registry.Database.Config
 
         internal static void Delete(Components component)
         {
-            Connect();
+            Connect(true);
             SqlTransaction transaction = null;
 
             try
@@ -805,7 +905,7 @@ namespace Registry.Database.Config
 
         internal static List<string> TextRead()
         {
-            Connect();
+            Connect(true);
             List<string> texts;
 
             try
@@ -1083,7 +1183,7 @@ namespace Registry.Database.Config
 
         internal static void ProcessorModification(Processor fromThisProcessor, Processor toThisProcessor)
         {
-            Connect();
+            Connect(true);
             SqlTransaction transaction = null;
 
             try
