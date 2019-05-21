@@ -22,7 +22,15 @@ namespace Registry.Classes.Users
             {
                 if (value.Trim() != "")
                 {
-                    userName = value;
+
+                    if (value.Length >= 6)
+                    {
+                        userName = value;
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Username must have 6 characters or more!");
+                    }
                 }
                 else
                 {
@@ -64,10 +72,9 @@ namespace Registry.Classes.Users
             }
         }
 
-        public User(string userName, string email, string password)
+        public User(string userName, string password)
         {
             UserName = userName;
-            Email = email;
             Password = password;
         }
 
@@ -76,6 +83,13 @@ namespace Registry.Classes.Users
             UserName = userName;
             Email = email;
             UserId = userId;
+        }
+
+        public User(string userName, string email, string password)
+        {
+            UserName = userName;
+            Email = email;
+            Password = password;
         }
 
         public static bool emailIsValid(string email)
@@ -98,6 +112,5 @@ namespace Registry.Classes.Users
                 return false;
             }
         }
-
     }
 }

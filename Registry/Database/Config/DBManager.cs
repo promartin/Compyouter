@@ -37,7 +37,7 @@ namespace Registry.Database.Config
                 }
                 else
                 {
-                    connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Userss"].ConnectionString);
+                    connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Users"].ConnectionString);
                     connection.Open();
                     command = new SqlCommand();
                     command.Connection = connection;
@@ -393,21 +393,40 @@ namespace Registry.Database.Config
                 command.Transaction = transaction;
 
                 command.CommandText =
-                    "SELECT [userName], [email], [userId] FROM [Users] WHERE [userName] = @userName AND [password] = @password";
+                    "SELECT [password] FROM [Users] WHERE [userName] = @userName";
                 command.Parameters.AddWithValue("@userName", loginUser.UserName);
-                command.Parameters.AddWithValue("@password", PasswordHash.ValidatePassword(loginUser.Password, PasswordHash.HashPassword(loginUser.Password)));
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                string hashedPassword = command.ExecuteScalar() as string;
+                if (hashedPassword != null)
                 {
-                    while (reader.Read())
+                    if (PasswordHash.ValidatePassword(loginUser.Password, hashedPassword))
                     {
-                        return new User((string) reader[0], (string) reader[1], (string) reader[2]);
+                        command.Parameters.Clear();
+
+                        command.CommandText =
+                            "SELECT [userName], [email], [userId] FROM [Users] WHERE [userName] = @userName";
+                        command.Parameters.AddWithValue("@userName", loginUser.UserName);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                return new User((string) reader[0], (string) reader[1], Convert.ToInt32(reader[2]));
+                            }
+                        }
                     }
+                    else
+                    {
+                        throw new ArgumentException("Wrong password!");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("There is no user named like that!");
                 }
             }
             catch (Exception e)
             {
-                throw new ArgumentException("Login error!", e);
+                throw new ArgumentException(e.Message);
             }
 
             return null;

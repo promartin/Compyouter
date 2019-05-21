@@ -87,10 +87,6 @@ namespace Registry
             InitializeComponent();
             //initializing everything we need
 
-            User newUser = new User("Peti", "Peti@hotmail.hu", "Pappirka1");
-            DBManager.Register(newUser);
-            //DBManager.Login(newUser);
-
             //Images for the buttons on flowlayout
             buttonImages = new Image[]
             {

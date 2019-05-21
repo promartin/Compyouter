@@ -118,14 +118,122 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cpu_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\cpu_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="coolerIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\coolerIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="twitter_colored" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\twitter_colored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ramIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\ramIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="coolerIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\coolerIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="close_cross" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\close-cross.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hddIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\hddIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cooling_fan_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\cooling-fan_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_420px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\logo_420px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="twitter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\twitter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="powerSupplyIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\powerSupplyIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="desktop_computer_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\desktop-computer_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="facebook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\facebook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ram_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\ram_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="instagram" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\instagram.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ram_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\ram_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="question_100px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\question_100px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="everything_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\everything_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="powerSupplyIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\powerSupplyIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cross" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\cross.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="coolerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\coolerIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cpu_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\cpu_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cpuIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\cpuIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\full size\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ramIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\ramIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="powerSupplyIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\powerSupplyIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="caseIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\button_icons\64px\caseIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="caseIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\caseIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="power_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\power_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="caseIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\caseIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cpuIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\cpuIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="video_card_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\video-card_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ssdIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\ssdIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="everything_50px_gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\everything_50px_gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="motherboardIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\motherboardIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="videoCardIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\videoCardIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="motherboard_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\motherboard_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="power_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\power_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="motherboard_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\motherboard_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="desktop_computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\desktop-computer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="case_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\menuButton_icons\resized\case_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -133,175 +241,70 @@
   <data name="case_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\menuButton_icons\resized\case_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="close_cross" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\close-cross.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="coolerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\coolerIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="coolerIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\coolerIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="coolerIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\coolerIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cooling_fan_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\cooling-fan_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cooling_fan_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\menuButton_icons\resized\cooling-fan_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cpuIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\cpuIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cpuIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\cpuIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cpuIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\cpuIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cpu_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\cpu_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cpu_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\cpu_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cross" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\cross.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="desktop_computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\desktop-computer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="desktop_computer_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\desktop-computer_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="desktop_computer_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\desktop-computer_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="everything_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\everything_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="everything_50px_gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\everything_50px_gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="exit_logo_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\exit_logo_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="facebook" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\facebook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="facebook_colored" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\form_icons\facebook_colored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hard_drive_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\hard-drive_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hard_drive_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\hard-drive_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hddIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\hddIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hddIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\hddIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hddIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\hddIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\full size\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="info_100px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\info_100px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="instagram" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\instagram.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="instagram_colored" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\form_icons\instagram_colored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo_420px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\logo_420px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="motherboardIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\button_icons\64px\motherboardIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="hard_drive_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\hard-drive_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hddIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\hddIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exit_logo_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\exit_logo_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hard_drive_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\hard-drive_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="motherboardIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\button_icons\64px\motherboardIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="motherboardIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\motherboardIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="hddIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\hddIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="motherboard_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\motherboard_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="info_100px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\info_100px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="motherboard_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\motherboard_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="powerSupplyIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\powerSupplyIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="powerSupplyIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\powerSupplyIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="powerSupplyIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\powerSupplyIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="power_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\power_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="power_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\power_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="question_100px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\question_100px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ramIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\ramIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ramIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\ramIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ramIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\ramIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ram_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\ram_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ram_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\ram_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ssdIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\ssdIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ssdIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\ssdIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ssdIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\ssdIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="twitter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\twitter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="twitter_colored" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\form_icons\twitter_colored.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="caseIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\caseIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="videoCardIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\button_icons\64px\videoCardIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="videoCardIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\button_icons\64px\videoCardIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ssdIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\ssdIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ramIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\ramIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="video_card_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\video-card_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="caseIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\caseIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="videoCardIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\button_icons\64px\videoCardIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="video_card_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\video-card_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cpuIconWarranty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\cpuIconWarranty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="video_card_gold_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\menuButton_icons\resized\video-card_gold_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ssdIconRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\button_icons\64px\ssdIconRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="desktop_computer_50px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\menuButton_icons\resized\desktop-computer_50px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\form_icons\full size\exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
