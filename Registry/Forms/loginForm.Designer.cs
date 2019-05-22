@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(loginForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.userPanel = new System.Windows.Forms.Panel();
             this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.userLabel = new System.Windows.Forms.Label();
@@ -43,6 +43,7 @@
             this.forgotPasswordLabel = new System.Windows.Forms.Label();
             this.passwordErrorLabel = new System.Windows.Forms.Label();
             this.userErrorLabel = new System.Windows.Forms.Label();
+            this.exitButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +61,15 @@
             this.panel1.Size = new System.Drawing.Size(400, 170);
             this.panel1.TabIndex = 0;
             // 
+            // panel2
+            // 
+            this.panel2.BackgroundImage = global::Registry.Properties.Resources.logo_420px;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel2.Location = new System.Drawing.Point(30, 112);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(358, 40);
+            this.panel2.TabIndex = 1;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::Registry.Properties.Resources.exit;
@@ -69,20 +79,12 @@
             this.pictureBox1.Size = new System.Drawing.Size(388, 94);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = global::Registry.Properties.Resources.logo_420px;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel2.Location = new System.Drawing.Point(12, 112);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(376, 40);
-            this.panel2.TabIndex = 1;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
             // 
             // userPanel
             // 
-            this.userPanel.BackColor = System.Drawing.SystemColors.GrayText;
-            this.userPanel.Location = new System.Drawing.Point(50, 240);
+            this.userPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.userPanel.Location = new System.Drawing.Point(50, 241);
             this.userPanel.Name = "userPanel";
             this.userPanel.Size = new System.Drawing.Size(300, 2);
             this.userPanel.TabIndex = 1;
@@ -96,15 +98,14 @@
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(300, 20);
             this.userNameTextBox.TabIndex = 2;
-            this.userNameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
             // 
             // userLabel
             // 
             this.userLabel.AutoSize = true;
             this.userLabel.BackColor = System.Drawing.Color.Transparent;
             this.userLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.userLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.userLabel.Location = new System.Drawing.Point(46, 193);
+            this.userLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.userLabel.Location = new System.Drawing.Point(46, 192);
             this.userLabel.Name = "userLabel";
             this.userLabel.Size = new System.Drawing.Size(77, 19);
             this.userLabel.TabIndex = 3;
@@ -115,8 +116,8 @@
             this.passwordLabel.AutoSize = true;
             this.passwordLabel.BackColor = System.Drawing.Color.Transparent;
             this.passwordLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.passwordLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.passwordLabel.Location = new System.Drawing.Point(46, 271);
+            this.passwordLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.passwordLabel.Location = new System.Drawing.Point(46, 267);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(74, 19);
             this.passwordLabel.TabIndex = 6;
@@ -127,17 +128,16 @@
             this.passwordTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.passwordTextBox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.passwordTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(153)))), ((int)(((byte)(92)))));
-            this.passwordTextBox.Location = new System.Drawing.Point(50, 293);
+            this.passwordTextBox.Location = new System.Drawing.Point(50, 290);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(300, 20);
             this.passwordTextBox.TabIndex = 5;
-            this.passwordTextBox.TextChanged += new System.EventHandler(this.PasswordTextBox_TextChanged);
             // 
             // passwordPanel
             // 
-            this.passwordPanel.BackColor = System.Drawing.SystemColors.GrayText;
-            this.passwordPanel.Location = new System.Drawing.Point(50, 318);
+            this.passwordPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.passwordPanel.Location = new System.Drawing.Point(50, 316);
             this.passwordPanel.Name = "passwordPanel";
             this.passwordPanel.Size = new System.Drawing.Size(300, 2);
             this.passwordPanel.TabIndex = 4;
@@ -148,7 +148,7 @@
             this.loginButton.FlatAppearance.BorderSize = 0;
             this.loginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loginButton.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.loginButton.ForeColor = System.Drawing.Color.DarkGray;
+            this.loginButton.ForeColor = System.Drawing.Color.Gainsboro;
             this.loginButton.Location = new System.Drawing.Point(150, 360);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(100, 45);
@@ -162,12 +162,14 @@
             this.registerLabel.AutoSize = true;
             this.registerLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.registerLabel.ForeColor = System.Drawing.Color.DarkGray;
-            this.registerLabel.Location = new System.Drawing.Point(9, 478);
+            this.registerLabel.Location = new System.Drawing.Point(12, 476);
             this.registerLabel.Name = "registerLabel";
             this.registerLabel.Size = new System.Drawing.Size(210, 15);
             this.registerLabel.TabIndex = 8;
             this.registerLabel.Text = "You haven\'t registered yet? Register!";
             this.registerLabel.Click += new System.EventHandler(this.RegisterLabel_Click);
+            this.registerLabel.MouseEnter += new System.EventHandler(this.RegisterLabel_MouseEnter);
+            this.registerLabel.MouseLeave += new System.EventHandler(this.RegisterLabel_MouseLeave);
             // 
             // forgotPasswordLabel
             // 
@@ -186,7 +188,7 @@
             this.passwordErrorLabel.BackColor = System.Drawing.Color.Transparent;
             this.passwordErrorLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.passwordErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.passwordErrorLabel.Location = new System.Drawing.Point(182, 274);
+            this.passwordErrorLabel.Location = new System.Drawing.Point(182, 271);
             this.passwordErrorLabel.Name = "passwordErrorLabel";
             this.passwordErrorLabel.Size = new System.Drawing.Size(91, 15);
             this.passwordErrorLabel.TabIndex = 10;
@@ -206,12 +208,29 @@
             this.userErrorLabel.Text = "User error";
             this.userErrorLabel.Visible = false;
             // 
+            // exitButton
+            // 
+            this.exitButton.BackColor = System.Drawing.Color.Transparent;
+            this.exitButton.FlatAppearance.BorderSize = 0;
+            this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitButton.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.exitButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.exitButton.Location = new System.Drawing.Point(354, 469);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(34, 22);
+            this.exitButton.TabIndex = 12;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
             // loginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(400, 500);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.userErrorLabel);
             this.Controls.Add(this.passwordErrorLabel);
             this.Controls.Add(this.forgotPasswordLabel);
@@ -251,5 +270,6 @@
         private System.Windows.Forms.Label forgotPasswordLabel;
         private System.Windows.Forms.Label passwordErrorLabel;
         private System.Windows.Forms.Label userErrorLabel;
+        private System.Windows.Forms.Button exitButton;
     }
 }
