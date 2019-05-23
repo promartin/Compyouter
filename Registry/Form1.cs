@@ -82,7 +82,7 @@ namespace Registry
         private static List<Videocard> selectedVideocard = new List<Videocard>();
         private static Computer createdComputer;
 
-        public Form1()
+        public Form1(User loggedInUser)
         {
             InitializeComponent();
             //initializing everything we need
@@ -114,7 +114,7 @@ namespace Registry
             componentList = DBManager.Read();
             componentCount = componentList.Count;
             computerList = new List<Computer>();
-
+            userLabel.Text = loggedInUser.UserName + " " + loggedInUser.UserId;
             checkBox1.Hide();
 
 

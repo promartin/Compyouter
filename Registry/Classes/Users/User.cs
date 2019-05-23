@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Registry.Classes.Users
 {
-    class User
+    public class User
     {
         private string userName;
         private string email;

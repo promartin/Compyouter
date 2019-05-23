@@ -72,6 +72,7 @@ namespace Registry
             this.manufacturerSearchTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.userLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -577,7 +578,7 @@ namespace Registry
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(752, 38);
+            this.checkBox1.Location = new System.Drawing.Point(300, 49);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(80, 17);
             this.checkBox1.TabIndex = 28;
@@ -585,12 +586,23 @@ namespace Registry
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
+            // userLabel
+            // 
+            this.userLabel.AutoSize = true;
+            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.userLabel.Location = new System.Drawing.Point(868, 59);
+            this.userLabel.Name = "userLabel";
+            this.userLabel.Size = new System.Drawing.Size(33, 13);
+            this.userLabel.TabIndex = 29;
+            this.userLabel.Text = "User";
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(967, 610);
+            this.Controls.Add(this.userLabel);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.twitterButton);
             this.Controls.Add(this.instagramButton);
@@ -662,6 +674,7 @@ namespace Registry
         private CheckBox checkBox1;
         private Button instagramButton;
         private TextBox textSearchTextBox;
+        private Label userLabel;
     }
 }
 

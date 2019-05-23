@@ -44,6 +44,7 @@
             this.passwordErrorLabel = new System.Windows.Forms.Label();
             this.userErrorLabel = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
+            this.successLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -162,7 +163,7 @@
             this.registerLabel.AutoSize = true;
             this.registerLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.registerLabel.ForeColor = System.Drawing.Color.DarkGray;
-            this.registerLabel.Location = new System.Drawing.Point(12, 476);
+            this.registerLabel.Location = new System.Drawing.Point(0, 480);
             this.registerLabel.Name = "registerLabel";
             this.registerLabel.Size = new System.Drawing.Size(210, 15);
             this.registerLabel.TabIndex = 8;
@@ -216,13 +217,25 @@
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.exitButton.ForeColor = System.Drawing.Color.Gainsboro;
-            this.exitButton.Location = new System.Drawing.Point(354, 469);
+            this.exitButton.Location = new System.Drawing.Point(357, 476);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(34, 22);
+            this.exitButton.Size = new System.Drawing.Size(43, 25);
             this.exitButton.TabIndex = 12;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
+            // successLabel
+            // 
+            this.successLabel.AutoSize = true;
+            this.successLabel.BackColor = System.Drawing.Color.Transparent;
+            this.successLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.successLabel.ForeColor = System.Drawing.Color.Lime;
+            this.successLabel.Location = new System.Drawing.Point(118, 173);
+            this.successLabel.Name = "successLabel";
+            this.successLabel.Size = new System.Drawing.Size(152, 15);
+            this.successLabel.TabIndex = 13;
+            this.successLabel.Text = "Registering was successful!";
             // 
             // loginForm
             // 
@@ -230,6 +243,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(400, 500);
+            this.Controls.Add(this.successLabel);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.userErrorLabel);
             this.Controls.Add(this.passwordErrorLabel);
@@ -244,9 +258,11 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.userPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "loginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "loginForm";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginForm_KeyDown);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -271,5 +287,6 @@
         private System.Windows.Forms.Label passwordErrorLabel;
         private System.Windows.Forms.Label userErrorLabel;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Label successLabel;
     }
 }

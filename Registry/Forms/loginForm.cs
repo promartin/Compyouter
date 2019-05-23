@@ -33,7 +33,9 @@ namespace Registry.Forms
         private Panel registerPassPanel;
         private Label registerPassLabel;
 
-        private bool wePositionedThem = false;
+        private bool wePositionedThem;
+        private bool loginPage;
+        private bool registerPage;
 
 
         #region Draggable surfaces
@@ -57,6 +59,8 @@ namespace Registry.Forms
         {
             InitializeComponent();
 
+            loginPage = true;
+            successLabel.Hide();
             this.BackColor = BackColor = ColorTranslator.FromHtml("#2D2D30");
             userNameTextBox.BackColor = ColorTranslator.FromHtml("#2D2D30");
             passwordTextBox.BackColor = ColorTranslator.FromHtml("#2D2D30");
@@ -123,11 +127,11 @@ namespace Registry.Forms
                             {
                                 fieldGroups[i, k].ForeColor = Color.FromArgb(109, 109, 109);
                             }
-                            else if (fieldGroups[i, k] is TextBox)
+                            else if (fieldGroups[i, k] is TextBox && fieldGroups[i, k].ForeColor != Color.Red)
                             {
                                 fieldGroups[i, k].ForeColor = Color.FromArgb(109, 109, 109);
                             }
-                            else if (fieldGroups[i, k] is Panel)
+                            else if (fieldGroups[i, k] is Panel && fieldGroups[i, k].BackColor != Color.Red)
                             {
                                 fieldGroups[i, k].BackColor = Color.FromArgb(109, 109, 109);
                             }
@@ -147,6 +151,13 @@ namespace Registry.Forms
                     {
                         user = DBManager.Login(new User(userNameTextBox.Text, passwordTextBox.Text));
 
+                        if (user != null)
+                        {
+                            this.Hide();
+                            Form form1 = new Form1(user);
+                            form1.Closed += (s, args) => this.Close();
+                            form1.Show();
+                        }
                     }
                     catch (Exception exception)
                     {
@@ -155,6 +166,7 @@ namespace Registry.Forms
                             passwordErrorLabel.Hide();
                             userErrorLabel.Show();
                             userErrorLabel.Text = exception.Message;
+                            userErrorLabel.ForeColor = Color.Red;
                             userPanel.BackColor = Color.Red;
                         }
                         else if (exception.Message == "Wrong password!")
@@ -162,6 +174,7 @@ namespace Registry.Forms
                             userErrorLabel.Hide();
                             passwordErrorLabel.Show();
                             passwordErrorLabel.Text = exception.Message;
+                            passwordErrorLabel.ForeColor = Color.Red;
                             passwordPanel.BackColor = Color.Red;
                         }
                         else
@@ -175,30 +188,32 @@ namespace Registry.Forms
 
         private void TextBox_TextChanged(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Back || e.KeyData == Keys.Delete)
+            string a = (sender as TextBox).Text;
+            if (e.KeyData == Keys.Back || e.KeyData == Keys.Delete || (sender as TextBox).Text.Length == 1)
             {
+                
                 if (sender == userNameTextBox)
                 {
                     userNameTextBox.ForeColor = Color.DarkGray;
-                    userPanel.BackColor = Color.DarkGray;
+                    //userPanel.BackColor = Color.DarkGray;
                     userErrorLabel.Hide();
                 }
                 else if (sender == passwordTextBox)
                 {
                     passwordTextBox.ForeColor = Color.DarkGray;
-                    passwordPanel.BackColor = Color.DarkGray;
+                   // passwordPanel.BackColor = Color.DarkGray;
                     passwordErrorLabel.Hide();
                 }
                 else if (sender == registerPass)
                 {
                     registerPass.ForeColor = Color.DarkGray;
-                    registerPassPanel.BackColor = Color.DarkGray;
+                    //registerPassPanel.BackColor = Color.DarkGray;
                     confirmErrorLabel?.Hide();
                 }
                 else if (sender == confirmTextBox)
                 {
                     confirmTextBox.ForeColor = Color.DarkGray;
-                    confirmPanel.BackColor = Color.DarkGray;
+                    //confirmPanel.BackColor = Color.DarkGray;
                     confirmErrorLabel?.Hide();
                 }
             }
@@ -210,6 +225,9 @@ namespace Registry.Forms
             if (registerLabel.Text == "You haven't registered yet? Register!")
             {
                 SetExistingForRegister();
+                registerPage = true;
+                loginPage = false;
+
 
                 int lastAddedControlGroup = 0;
 
@@ -271,6 +289,8 @@ namespace Registry.Forms
             }
             else if (registerLabel.Text == "Register!")
             {
+                bool weHaveError = false;
+
                 List<Label> excpetLabels = new List<Label>();
                 if (userNameTextBox.Text.Trim() != "")
                 {
@@ -286,30 +306,19 @@ namespace Registry.Forms
                                     DBManager.Register(user);
 
                                     SetEverythingBack();
+                                    successLabel.Show();
                                 }
                                 catch (Exception exception)
                                 {
                                     if (exception.Message == "This username is in use!")
                                     {
-                                        passwordErrorLabel.Show();
-                                        passwordErrorLabel.Text = "This username is in use!";
-                                        passwordLabel.ForeColor = Color.Red;
-                                        passwordTextBox.ForeColor = Color.Red;
-                                        passwordPanel.BackColor = Color.Red;
-
-                                        excpetLabels.Add(passwordLabel);
-                                        excpetLabels.Add(passwordErrorLabel);
+                                        weHaveError = true;
+                                        Errors("This username is in use!");
                                     }
                                     else if (exception.Message == "This E-mail is already in use!")
                                     {
-                                        userErrorLabel.Show();
-                                        userErrorLabel.Text = "This E-mail is already in use!";
-                                        userLabel.ForeColor = Color.Red;
-                                        userNameTextBox.ForeColor = Color.Red;
-                                        userPanel.BackColor = Color.Red;
-
-                                        excpetLabels.Add(userLabel);
-                                        excpetLabels.Add(userErrorLabel);
+                                        weHaveError = true;
+                                        Errors("This E-mail is already in use!");
                                     }
                                     else
                                     {
@@ -320,60 +329,99 @@ namespace Registry.Forms
                             }
                             else
                             {
-                                confirmErrorLabel = userErrorLabel.Clone();
-                                confirmErrorLabel.Location = new Point(userErrorLabel.Location.X, registerPass.Top + 30);
-                                confirmErrorLabel.Text = "The passwords don't match!";
-                                confirmErrorLabel.Show();
-
-
-                                confirmLabel.ForeColor = Color.Red;
-                                confirmPanel.BackColor = Color.Red;
-                                confirmTextBox.ForeColor = Color.Red;
-
-                                registerPassLabel.ForeColor = Color.Red;
-                                registerPassPanel.BackColor = Color.Red;
-                                registerPass.ForeColor = Color.Red;
-
-                                excpetLabels.Add(confirmLabel);
-                                excpetLabels.Add(confirmErrorLabel);
-                                excpetLabels.Add(registerPassLabel);
+                                weHaveError = true;
+                                Errors("The passwords don't match!");
                             }
                         }
                         else
                         {
-                            passwordErrorLabel.Text = "The user name must contain 6 characters!";
-                            passwordLabel.ForeColor = Color.Red;
-                            passwordPanel.BackColor = Color.Red;
-                            excpetLabels.Add(passwordLabel);
-                            excpetLabels.Add(passwordErrorLabel);
+                            weHaveError = true;
+                            Errors("The user name must contain 6 characters!");
                         }
                     }
                     else
                     {
-                        userErrorLabel.Show();
-                        userLabel.ForeColor = Color.Red;
-                        userPanel.BackColor = Color.Red;
-                        userErrorLabel.Text = "This E-mail is not valid!";
-                        excpetLabels.Add(userLabel);
-                        excpetLabels.Add(userErrorLabel);
+                        weHaveError = true;
+                        Errors("This E-mail is not valid!");
                     }
                 }
                 else
                 {
-                    userErrorLabel.Show();
-                    userLabel.ForeColor = Color.Red;
-                    userPanel.BackColor = Color.Red;
-                    userErrorLabel.Text = "Please, enter your E-mail!";
-                    excpetLabels.Add(userLabel);
-                    excpetLabels.Add(userErrorLabel);
+                    weHaveError = true;
+                    Errors("Please, enter your E-mail!");
                 }
 
-                SetEveryLabelBack(excpetLabels);
+                void Errors(string message)
+                {
+                    if (weHaveError)
+                    {
+                        userLabel.ForeColor = Color.FromArgb(109, 109, 109);
+                        userPanel.BackColor = Color.FromArgb(109, 109, 109);
+                        passwordLabel.ForeColor = Color.FromArgb(109, 109, 109);
+                        passwordPanel.BackColor = Color.FromArgb(109, 109, 109);
+                        registerPassLabel.ForeColor = Color.FromArgb(109, 109, 109);
+                        registerPassPanel.BackColor = Color.FromArgb(109, 109, 109);
+                        confirmLabel.ForeColor = Color.FromArgb(109, 109, 109);
+                        confirmPanel.BackColor = Color.FromArgb(109, 109, 109);
+
+                        userNameTextBox.Focus();
+                        OnGotFocus(null, null);
+
+                        TextBox_TextChanged(userNameTextBox, new KeyEventArgs(Keys.Delete));
+                        TextBox_TextChanged(passwordTextBox, new KeyEventArgs(Keys.Delete));
+                        TextBox_TextChanged(registerPass, new KeyEventArgs(Keys.Delete));
+                        TextBox_TextChanged(confirmTextBox, new KeyEventArgs(Keys.Delete));
+                    }
+
+                    if (message == "Please, enter your E-mail!" || message == "This E-mail is not valid!" || message == "This E-mail is already in use!")
+                    {
+                        userErrorLabel.Show();
+                        userErrorLabel.Text = message;
+                        userLabel.ForeColor = Color.Red;
+                        userPanel.BackColor = Color.Red;
+                        excpetLabels.Add(userLabel);
+                        excpetLabels.Add(userErrorLabel);
+                    }
+                    else if (message == "The user name must contain 6 characters!" || message == "This username is in use!")
+                    {
+                        passwordErrorLabel.Show();
+                        passwordErrorLabel.Text = message;
+                        passwordLabel.ForeColor = Color.Red;
+                        passwordPanel.BackColor = Color.Red;
+                        excpetLabels.Add(passwordLabel);
+                        excpetLabels.Add(passwordErrorLabel);
+
+                    }
+                    else if (message == "The passwords don't match!")
+                    {
+                        confirmErrorLabel = userErrorLabel.Clone();
+                        confirmErrorLabel.Location = new Point(userErrorLabel.Location.X, registerPass.Top + 30);
+                        confirmErrorLabel.Text = message;
+                        confirmErrorLabel.Show();
+
+                        confirmLabel.ForeColor = Color.Red;
+                        confirmPanel.BackColor = Color.Red;
+                        //confirmTextBox.ForeColor = Color.Red;
+
+                        registerPassLabel.ForeColor = Color.Red;
+                        registerPassPanel.BackColor = Color.Red;
+                        //registerPass.ForeColor = Color.Red;
+
+                        excpetLabels.Add(confirmLabel);
+                        excpetLabels.Add(confirmErrorLabel);
+                        excpetLabels.Add(registerPassLabel);
+                    }
+                }
             }
         }
 
         private void SetEverythingBack()
         {
+            registerPage = false;
+            loginPage = true;
+
+            userNameTextBox.Focus();
+
             userLabel.Text = "Username";
             if (user != null)
             {
@@ -384,9 +432,12 @@ namespace Registry.Forms
                 userNameTextBox.Text = "";
             }
 
+            userPanel.BackColor = Color.FromArgb(109, 109, 109);
+
             passwordLabel.Text = "Password";
             passwordTextBox.Text = "";
             passwordTextBox.PasswordChar = '*';
+            passwordPanel.BackColor = Color.FromArgb(109, 109, 109);
 
             registerLabel.Text = "You haven't registered yet? Register!";
             exitButton.Text = "Exit";
@@ -403,6 +454,10 @@ namespace Registry.Forms
                     {
                         for (int k = 0; k < fieldgroup2D; k++)
                         {
+                            if (fieldGroups[i, j] is TextBox)
+                            {
+                                fieldGroups[i, j].Text = "";
+                            }
                             fieldGroups[i, k].Hide();
                         }
                     }
@@ -412,7 +467,7 @@ namespace Registry.Forms
             SetEveryLabelBack(null);
         }
 
-        //SET EVERY ERROR LABEL BACK!
+
         private void SetEveryLabelBack(List<Label> exceptTheseOnes)
         {
             int countControl = this.Controls.Count;
@@ -420,7 +475,7 @@ namespace Registry.Forms
             {
                 if (exceptTheseOnes != null)
                 {
-                    if (this.Controls[i] != registerLabel )
+                    if (this.Controls[i] != registerLabel)
                     {
                         if (this.Controls[i] is Label && !exceptTheseOnes.Contains(this.Controls[i]))
                         {
@@ -434,12 +489,12 @@ namespace Registry.Forms
                 }
                 else
                 {
-                    if (this.Controls[i] is Label && this.Controls[i] != userLabel && this.Controls[i] != passwordLabel && this.Controls[i] != registerLabel && this.Controls[i] != forgotPasswordLabel)
+                    if (this.Controls[i] is Label && this.Controls[i] != userLabel && this.Controls[i] != passwordLabel && this.Controls[i] != registerLabel && this.Controls[i] != forgotPasswordLabel && this.Controls[i] != successLabel)
                     {
                         this.Controls[i].Hide();
                     }
 
-                    if (this.Controls[i] is Label && this.Controls[i] != forgotPasswordLabel)
+                    if (this.Controls[i] is Label && this.Controls[i] != forgotPasswordLabel && this.Controls[i] != successLabel)
                     {
                         this.Controls[i].ForeColor = Color.FromArgb(109, 109, 109);
                     }
@@ -463,6 +518,8 @@ namespace Registry.Forms
         {
             userNameTextBox.Text = "";
             userErrorLabel.Hide();
+            passwordErrorLabel.Hide();
+            userNameTextBox.Focus();
 
             passwordTextBox.Text = "";
             registerLabel.Text = "Register!";
@@ -472,6 +529,39 @@ namespace Registry.Forms
             passwordTextBox.PasswordChar = '\0';
             forgotPasswordLabel.Hide();
             loginButton.Hide();
+            successLabel.Hide();
+
+            for (int i = 0; i < fieldgroup1D; i++)
+            {
+                for (int j = 0; j < fieldgroup2D; j++)
+                {
+                    if (fieldGroups[i, j].BackColor == Color.Red || fieldGroups[i, j].ForeColor == Color.Red)
+                    {
+                        if (fieldGroups[i, j].Focused)
+                        {
+                            if (fieldGroups[i, j] is TextBox || fieldGroups[i, j] is Label)
+                            {
+                                fieldGroups[i, j].ForeColor = Color.DarkGray;
+                            }
+                            else
+                            {
+                                fieldGroups[i, j].BackColor = Color.DarkGray;
+                            }
+                        }
+                        else
+                        {
+                            if (fieldGroups[i, j] is TextBox || fieldGroups[i, j] is Label)
+                            {
+                                fieldGroups[i, j].ForeColor = Color.FromArgb(109, 109, 109);
+                            }
+                            else
+                            {
+                                fieldGroups[i, j].BackColor = Color.FromArgb(109, 109, 109);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void RegisterLabel_MouseEnter(object sender, EventArgs e)
@@ -485,6 +575,21 @@ namespace Registry.Forms
         {
             registerLabel.ForeColor = Color.DarkGray;
             registerLabel.Font = new Font(registerLabel.Font.Name, registerLabel.Font.SizeInPoints, FontStyle.Bold);
+        }
+
+        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (loginPage)
+                {
+                    loginButton.PerformClick();
+                }
+                else if (registerPage)
+                {
+                    RegisterLabel_Click(sender, e);
+                }
+            }
         }
     }
 
