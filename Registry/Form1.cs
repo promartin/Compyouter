@@ -114,7 +114,10 @@ namespace Registry
             componentList = DBManager.Read();
             componentCount = componentList.Count;
             computerList = new List<Computer>();
-            userLabel.Text = loggedInUser.UserName + " " + loggedInUser.UserId;
+            if (loggedInUser != null)
+            {
+                userLabel.Text = loggedInUser.UserName + " " + loggedInUser.UserId;
+            }
             checkBox1.Hide();
 
 
@@ -163,6 +166,22 @@ namespace Registry
             flowLayoutPanel1.ControlAdded += FlowLayoutPanel1_ControlChanged;
             flowLayoutPanel1.ControlRemoved += FlowLayoutPanel1_ControlChanged;
             FlowLayoutPanel1_ControlChanged(null, null);
+
+            
+            if (flowLayoutPanel1.Controls.Count == 0)
+            {
+                Teszt(true);
+                componentList = DBManager.Read();
+                componentCount = componentList.Count;
+                computerList = new List<Computer>();
+                if (loggedInUser != null)
+                {
+                    userLabel.Text = loggedInUser.UserName + " " + loggedInUser.UserId;
+                }
+                checkBox1.Hide();
+                ComponentButtonRefresh();
+            }
+            
         }
 
         //Needed to avoid flickering!
