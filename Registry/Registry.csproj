@@ -310,6 +310,7 @@
     <Content Include="icons\form_icons\question_100px.png" />
     <Content Include="icons\form_icons\twitter.png" />
     <Content Include="icons\form_icons\twitter_colored.png" />
+    <None Include="icons\login_background.jpg" />
     <Content Include="icons\menuButton_icons\full sized\case.png" />
     <Content Include="icons\menuButton_icons\full sized\case_gold.png" />
     <Content Include="icons\menuButton_icons\full sized\cooling-fan.png" />
