@@ -49,7 +49,7 @@ namespace Registry.Database.Config
             }
         }
 
-        internal static void Insert(Components component)
+        internal static void Insert(Components component, User currentUser)
         {
             Connect(true);
             SqlTransaction transaction = null;
@@ -60,7 +60,8 @@ namespace Registry.Database.Config
                 transaction = connection.BeginTransaction("Insert");
                 command.Transaction = transaction;
                 command.CommandText =
-                    "INSERT INTO [Component] VALUES (@manufacturer, @productName, @serialNumber, @price, @dateOfPurchase, @dateOfAdd, @warranty, @text)";
+                    "INSERT INTO [Component] VALUES (@userId, @manufacturer, @productName, @serialNumber, @price, @dateOfPurchase, @dateOfAdd, @warranty, @text)";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@manufacturer", component.Manufacturer);
                 command.Parameters.AddWithValue("@productName", component.ProductsName);
                 command.Parameters.AddWithValue("@serialNumber", component.SerialNumber != " " ? component.SerialNumber : " ");
@@ -249,7 +250,7 @@ namespace Registry.Database.Config
             Disconnect();
         }
 
-        internal static void Insert(Computer computer)
+        internal static void Insert(Computer computer, User currentUser)
         {
             Connect(true);
             SqlTransaction transaction = null;
@@ -257,19 +258,19 @@ namespace Registry.Database.Config
             try
             {
                 //Making string out of ids
-                int house = SelectID((Case)computer.House);
-                int cooler = SelectID((Cooler)computer.Cooler);
-                int motherboard = SelectID((Motherboard)computer.Motherboard);
-                int powerSupply = SelectID((PowerSupply)computer.PowerSupply);
+                int house = SelectID((Case)computer.House, currentUser);
+                int cooler = SelectID((Cooler)computer.Cooler, currentUser);
+                int motherboard = SelectID((Motherboard)computer.Motherboard, currentUser);
+                int powerSupply = SelectID((PowerSupply)computer.PowerSupply, currentUser);
                 int intelProcessor = 0;
                 int amdProcessor = 0;
                 if (computer.IntelProcessor != null)
                 {
-                    intelProcessor = SelectID((Processor)computer.IntelProcessor);
+                    intelProcessor = SelectID((Processor)computer.IntelProcessor, currentUser);
                 }
                 else
                 {
-                    amdProcessor = SelectID((Processor)computer.AmdProcessor);
+                    amdProcessor = SelectID((Processor)computer.AmdProcessor, currentUser);
                 }
                 string[] componentIdStrings = new string[4];
                 componentIdStrings[0] = GetIdsOfList(new List<Components>(computer.Rams));
@@ -281,7 +282,8 @@ namespace Registry.Database.Config
                 transaction = connection.BeginTransaction("Computer insert");
                 command.Transaction = transaction;
 
-                command.CommandText = "INSERT INTO [Computer] VALUES (@case, @cooler, @motherboard, @powerSupply, @processor, @ram, @hdd, @ssd, @videocard)";
+                command.CommandText = "INSERT INTO [Computer] VALUES (@userId, @case, @cooler, @motherboard, @powerSupply, @processor, @ram, @hdd, @ssd, @videocard)";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@case", house);
                 command.Parameters.AddWithValue("@cooler", cooler);
                 command.Parameters.AddWithValue("@motherboard", motherboard);
@@ -308,10 +310,10 @@ namespace Registry.Database.Config
                     string ids = "";
                     for (int a = 0; a < computerParts.Count; a++)
                     {
-                        ids += SelectID(computerParts[a]) + ", ";
+                        ids += SelectID(computerParts[a], currentUser) + ", ";
                         if (a == computerParts.Count)
                         {
-                            ids += SelectID(computerParts[a]);
+                            ids += SelectID(computerParts[a], currentUser);
                         }
                     }
                     return ids;
@@ -339,7 +341,7 @@ namespace Registry.Database.Config
 
                 command.CommandText = "SELECT COUNT([userId]) FROM [Users] WHERE [userName] = @userName";
                 command.Parameters.AddWithValue("@userName", registerUser.UserName);
-                int usersWithThisName = (int) command.ExecuteScalar();
+                int usersWithThisName = (int)command.ExecuteScalar();
 
                 if (usersWithThisName == 0)
                 {
@@ -410,7 +412,7 @@ namespace Registry.Database.Config
                         {
                             while (reader.Read())
                             {
-                                return new User((string) reader[0], (string) reader[1], Convert.ToInt32(reader[2]));
+                                return new User((string)reader[0], (string)reader[1], Convert.ToInt32(reader[2]));
                             }
                         }
                     }
@@ -431,7 +433,7 @@ namespace Registry.Database.Config
 
             return null;
         }
-        internal static List<Components> Read()
+        internal static List<Components> Read(User currentUser)
         {
             Connect(true);
             SqlTransaction transaction = null;
@@ -444,9 +446,10 @@ namespace Registry.Database.Config
                 command.Transaction = transaction;
 
                 #region AMDProcessor
-                //Everything from AMDProcessor
-                command.CommandText = "SELECT * FROM([AMDProcessor] INNER JOIN [Component] ON AMDProcessor.Id = Component.Id) INNER JOIN [Processor] ON Component.Id = Processor.Id";
+                command.CommandText = "SELECT * FROM([AMDProcessor] INNER JOIN [Component] ON AMDProcessor.Id = Component.Id AND [Component].[userId] = @userId) INNER JOIN [Processor] ON Component.Id = Processor.Id";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
 
+                //Everything from AMDProcessor
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -458,12 +461,13 @@ namespace Registry.Database.Config
 
                 #region IntelProcessor
                 //Everything from IntelProcessor
-                command.CommandText = "SELECT * FROM([IntelProcessor] INNER JOIN [Component] ON IntelProcessor.Id = Component.Id) INNER JOIN [Processor] ON Component.Id = Processor.Id";
+                command.CommandText = "SELECT * FROM([IntelProcessor] INNER JOIN [Component] ON IntelProcessor.Id = Component.Id AND [Component].[userId] = @userId) INNER JOIN [Processor] ON Component.Id = Processor.Id";
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        int a = (int)reader["Id"];
                         components.Add(new IntelProcessor(reader["manufacturer"].ToString(), reader["productsName"].ToString(), reader["serialNumber"].ToString(), (int)reader["price"], (DateTime)reader["dateOfPurchase"], (DateTime)reader["dateOfAdd"], (DateTime)reader["warranty"], reader["text"].ToString(), Convert.ToDouble(reader["l2Cache"]), Convert.ToDouble(reader["l3Cache"]), (int)reader["cores"], (int)reader["threads"], (int)reader["process"], (int)reader["frequency"], (int)reader["turboFrequency"], (int)reader["tdp"], (IntelSocket)reader["intelSocket"], reader["integratedGraphics"].ToString()));
                     }
                 }
@@ -471,7 +475,7 @@ namespace Registry.Database.Config
 
                 #region RAM
                 //Everything from RAM
-                command.CommandText = "SELECT * FROM [Component] INNER JOIN [RAM] ON Component.Id = RAM.Id";
+                command.CommandText = "SELECT * FROM [Component] INNER JOIN [RAM] ON Component.Id = RAM.Id WHERE [Component].[userId] = @userId";
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -484,7 +488,7 @@ namespace Registry.Database.Config
 
                 #region Motherboard
                 //Everything from Motherboard
-                command.CommandText = "SELECT * FROM [Component] INNER JOIN [Motherboard] ON Component.Id = Motherboard.Id";
+                command.CommandText = "SELECT * FROM [Component] INNER JOIN [Motherboard] ON Component.Id = Motherboard.Id WHERE [Component].[userId] = @userId";
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -497,7 +501,7 @@ namespace Registry.Database.Config
 
                 #region Videocard
                 //Everything from Videocard
-                command.CommandText = "SELECT * FROM [Videocard] INNER JOIN [Component] ON Videocard.Id = Component.Id";
+                command.CommandText = "SELECT * FROM [Videocard] INNER JOIN [Component] ON Videocard.Id = Component.Id WHERE [Component].[userId] = @userId";
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -510,7 +514,7 @@ namespace Registry.Database.Config
 
                 #region HDD
                 //Everything from HDD
-                command.CommandText = "SELECT * FROM([HDD] INNER JOIN [Component] ON HDD.Id = Component.Id) INNER JOIN [Storages] ON Component.Id = Storages.Id";
+                command.CommandText = "SELECT * FROM([HDD] INNER JOIN [Component] ON HDD.Id = Component.Id) INNER JOIN [Storages] ON Component.Id = Storages.Id WHERE [Component].[userId] = @userId";
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -523,7 +527,8 @@ namespace Registry.Database.Config
 
                 #region SSD
                 //Everything from SSD
-                command.CommandText = "SELECT * FROM([SSD] INNER JOIN [Component] ON SSD.Id = Component.Id) INNER JOIN [Storages] ON Component.Id = Storages.Id";
+                command.CommandText = "SELECT * FROM([SSD] INNER JOIN [Component] ON SSD.Id = Component.Id) INNER JOIN [Storages] ON Component.Id = Storages.Id WHERE [Component].[userId] = @userId";
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -535,7 +540,8 @@ namespace Registry.Database.Config
 
                 #region PowerSupply
                 //Everything from PowerSupply
-                command.CommandText = "SELECT * FROM [Component] INNER JOIN [PowerSupply] ON Component.Id = PowerSupply.Id";
+                command.CommandText = "SELECT * FROM [Component] INNER JOIN [PowerSupply] ON Component.Id = PowerSupply.Id WHERE [Component].[userId] = @userId";
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -547,7 +553,8 @@ namespace Registry.Database.Config
 
                 #region Case
                 //Everything from Case
-                command.CommandText = "SELECT * FROM [Component] INNER JOIN [Case] ON [Component].[Id] = [Case].[Id]";
+                command.CommandText = "SELECT * FROM [Component] INNER JOIN [Case] ON [Component].[Id] = [Case].[Id] WHERE [Component].[userId] = @userId";
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -559,7 +566,8 @@ namespace Registry.Database.Config
 
                 #region Cooler
                 //Everything from Cooler
-                command.CommandText = "SELECT * FROM [Component] INNER JOIN [Cooler] ON Component.Id = Cooler.Id";
+                command.CommandText = "SELECT * FROM [Component] INNER JOIN [Cooler] ON Component.Id = Cooler.Id WHERE [Component].[userId] = @userId";
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -568,7 +576,6 @@ namespace Registry.Database.Config
                     }
                 }
                 #endregion
-
             }
             catch (Exception e)
             {
@@ -579,7 +586,7 @@ namespace Registry.Database.Config
             return components;
         }
 
-        internal static Components ReadCucc()
+        internal static Components ReadCucc(User currentUser)
         {
             Connect(true);
             Components components = null;
@@ -590,7 +597,9 @@ namespace Registry.Database.Config
 
                 List<Computer> computers = new List<Computer>();
 
-                command.CommandText = "SELECT * FROM [Computer] INNER JOIN [Case] ON Computer.case = Case.Id";
+                command.CommandText = "SELECT * FROM [Computer] INNER JOIN [Case] ON Computer.case = Case.Id  WHERE [userId] = @userId";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -608,14 +617,14 @@ namespace Registry.Database.Config
             return components;
         }
 
-        internal static void Modification(Components editComponent, Components toThisComponent)
+        internal static void Modification(Components editComponent, Components toThisComponent, User currentUser)
         {
             Connect(true);
             SqlTransaction transaction = null;
 
             try
             {
-                int i = SelectID(editComponent);
+                int i = SelectID(editComponent, currentUser);
 
                 command.Parameters.Clear();
                 transaction = connection.BeginTransaction("Modification");
@@ -769,7 +778,7 @@ namespace Registry.Database.Config
             Disconnect();
         }
 
-        internal static void Delete(Components component)
+        internal static void Delete(Components component, User currentUser)
         {
             Connect(true);
             SqlTransaction transaction = null;
@@ -779,7 +788,7 @@ namespace Registry.Database.Config
                 transaction = connection.BeginTransaction("Delete");
                 command.Transaction = transaction;
                 command.Parameters.Clear();
-                int id = SelectID(component);
+                int id = SelectID(component, currentUser);
 
                 if (component is Case)
                 {
@@ -950,14 +959,15 @@ namespace Registry.Database.Config
             return texts;
         }
 
-        static int SelectID(Components component)
+        static int SelectID(Components component, User currentUser)
         {
             command.Parameters.Clear();
 
             if (component is Motherboard)
             {
                 //Selecting ID 
-                command.CommandText = "SELECT [Id] FROM [Motherboard] WHERE [formFactor] = @formFactor AND [socket] = @socket AND [memoryGeneration] = @memoryGeneration AND [crossfire] = @crossfire AND [sli] = @sli AND [bluetooth] = @bluetooth AND [wifi] = @wifi AND [m2x4Number] = @m2x4Number AND [memorySlots] = @memorySlots AND [maxMemorySize] = @maxMemorySize AND [pciE_x16_Slots] = @pciE_x16_Slots AND [pciE_x4_Slots] = @pciE_x4_Slots AND [pciE_x1_Slots] = @pciE_x1_Slots AND [sata3Connectors] = @sata3Connectors AND [usb30] = @usb30 AND [usb31] = @usb31 AND [lan] = @lan";
+                command.CommandText = "SELECT [Motherboard].[Id] FROM [Motherboard] INNER JOIN [Component] ON [userId] = @userId WHERE [formFactor] = @formFactor AND [socket] = @socket AND [memoryGeneration] = @memoryGeneration AND [crossfire] = @crossfire AND [sli] = @sli AND [bluetooth] = @bluetooth AND [wifi] = @wifi AND [m2x4Number] = @m2x4Number AND [memorySlots] = @memorySlots AND [maxMemorySize] = @maxMemorySize AND [pciE_x16_Slots] = @pciE_x16_Slots AND [pciE_x4_Slots] = @pciE_x4_Slots AND [pciE_x1_Slots] = @pciE_x1_Slots AND [sata3Connectors] = @sata3Connectors AND [usb30] = @usb30 AND [usb31] = @usb31 AND [lan] = @lan";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@formFactor", (component as Motherboard).FormFactor);
                 command.Parameters.AddWithValue("@socket", (component as Motherboard).Socket);
                 command.Parameters.AddWithValue("@memoryGeneration", (component as Motherboard).MemoryGeneration);
@@ -975,27 +985,11 @@ namespace Registry.Database.Config
                 command.Parameters.AddWithValue("@usb30", (component as Motherboard).Usb30);
                 command.Parameters.AddWithValue("@usb31", (component as Motherboard).Usb31);
                 command.Parameters.AddWithValue("@lan", (component as Motherboard).Lan);
-
-                //Save ID
-                int ID = 0;
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ID = (int)reader["Id"];
-                    }
-                }
-
-                if (ID == 0)
-                {
-                    ID = 1;
-                }
-
-                return ID;
             }
             else if (component is Case)
             {
-                command.CommandText = "SELECT [Id] FROM [Case] WHERE [atx] = @atx AND [eatx] = @eatx AND [microATX] = @microATX AND [miniITX] = @miniITX AND [miniSTX] = @miniSTX AND [thinMiniITX] = @thinMiniITX AND [caseFormFactor] = @caseFormFactor AND [hddSpace] = @hddSpace AND [slimHdDspace] = @slimHdDspace AND [cpuHeatSinkHeight] = @cpuHeatSinkHeight AND [videoCardLength] = @videoCardLength AND [bottomSupply] = @bottomSupply";
+                command.CommandText = "SELECT [Case].[Id] FROM [Case] INNER JOIN [Component] ON [userId] = @userId WHERE [atx] = @atx AND [eatx] = @eatx AND [microATX] = @microATX AND [miniITX] = @miniITX AND [miniSTX] = @miniSTX AND [thinMiniITX] = @thinMiniITX AND [caseFormFactor] = @caseFormFactor AND [hddSpace] = @hddSpace AND [slimHdDspace] = @slimHdDspace AND [cpuHeatSinkHeight] = @cpuHeatSinkHeight AND [videoCardLength] = @videoCardLength AND [bottomSupply] = @bottomSupply";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@atx", (component as Case).Atx ? 1 : 0);
                 command.Parameters.AddWithValue("@eatx", (component as Case).Eatx ? 1 : 0);
                 command.Parameters.AddWithValue("@microATX", (component as Case).MicroATX ? 1 : 0);
@@ -1008,22 +1002,11 @@ namespace Registry.Database.Config
                 command.Parameters.AddWithValue("@cpuHeatSinkHeight", (component as Case).CpuHeatSinkHeight);
                 command.Parameters.AddWithValue("@videoCardLength", (component as Case).VideoCardLength);
                 command.Parameters.AddWithValue("@bottomSupply", (component as Case).BottomSupply ? 1 : 0);
-
-                //Save ID
-                int ID = 0;
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ID = (int)reader["Id"];
-                    }
-                }
-
-                return ID;
             }
             else if (component is Cooler)
             {
-                command.CommandText = "SELECT [Id] FROM [Cooler] WHERE [lga1151] = @lga1151 AND [lga2066] = @lga2066 AND [lga2011] = @lga2011 AND [lga1366] = @lga1366 AND [lga775] = @lga775 AND [fm122Plus3Plus] = @fm122Plus3Plus AND [am4] = @am4 AND [am22Plus33Plus] = @am22Plus33Plus AND [tr4] = @tr4 AND [height] = @height";
+                command.CommandText = "SELECT [Cooler].[Id] FROM [Cooler] INNER JOIN [Component] ON [userId] = @userId WHERE [lga1151] = @lga1151 AND [lga2066] = @lga2066 AND [lga2011] = @lga2011 AND [lga1366] = @lga1366 AND [lga775] = @lga775 AND [fm122Plus3Plus] = @fm122Plus3Plus AND [am4] = @am4 AND [am22Plus33Plus] = @am22Plus33Plus AND [tr4] = @tr4 AND [height] = @height";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@lga1151", (component as Cooler).Lga1151 ? 1 : 0);
                 command.Parameters.AddWithValue("@lga2066", (component as Cooler).Lga2066 ? 1 : 0);
                 command.Parameters.AddWithValue("@lga2011", (component as Cooler).Lga2011 ? 1 : 0);
@@ -1034,22 +1017,11 @@ namespace Registry.Database.Config
                 command.Parameters.AddWithValue("@am22Plus33Plus", (component as Cooler).AM22plus33plus ? 1 : 0);
                 command.Parameters.AddWithValue("@tr4", (component as Cooler).Tr4 ? 1 : 0);
                 command.Parameters.AddWithValue("@height", (component as Cooler).Height);
-
-                //Save ID
-                int ID = 0;
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ID = (int)reader["Id"];
-                    }
-                }
-
-                return ID;
             }
             else if (component is PowerSupply)
             {
-                command.CommandText = "SELECT [Id] FROM [PowerSupply] WHERE [output] = @output AND [efficency] = @efficency AND [sata] = @sata AND [pcie] = @pcie AND [molex] = @molex AND [modular] = @modular AND [formFactor] = @formFactor";
+                command.CommandText = "SELECT [PowerSupply].[Id] FROM [PowerSupply] INNER JOIN [Component] ON [userId] = @userId WHERE [output] = @output AND [efficency] = @efficency AND [sata] = @sata AND [pcie] = @pcie AND [molex] = @molex AND [modular] = @modular AND [formFactor] = @formFactor";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@output", (component as PowerSupply).Output);
                 command.Parameters.AddWithValue("@efficency", (component as PowerSupply).Efficency);
                 command.Parameters.AddWithValue("@sata", (component as PowerSupply).Sata);
@@ -1057,64 +1029,30 @@ namespace Registry.Database.Config
                 command.Parameters.AddWithValue("@molex", (component as PowerSupply).Molex);
                 command.Parameters.AddWithValue("@modular", (component as PowerSupply).Modular ? 1 : 0);
                 command.Parameters.AddWithValue("@formFactor", (component as PowerSupply).FormFactor);
-
-                //Save ID
-                int ID = 0;
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ID = (int)reader["Id"];
-                    }
-                }
-
-                return ID;
             }
             else if (component is Processor)
             {
                 if (component is AMDProcessor)
                 {
                     command.CommandText =
-                        "SELECT [Id] FROM [AMDProcessor] WHERE [amdSocket] = @amdSocket AND [integratedGraphics] = @integratedGraphics";
+                        "SELECT [AMDProcessor].[Id] FROM [AMDProcessor] INNER JOIN [Component] ON [userId] = @userId WHERE [amdSocket] = @amdSocket AND [integratedGraphics] = @integratedGraphics";
+                    command.Parameters.AddWithValue("@userId", currentUser.UserId);
                     command.Parameters.AddWithValue("@amdSocket", (component as AMDProcessor).AmdSocket);
                     command.Parameters.AddWithValue("@integratedGraphics", (component as AMDProcessor).IntegratedGraphics != "" ? (component as AMDProcessor).IntegratedGraphics : "");
-
-                    //Save ID
-                    int ID = 0;
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            ID = (int)reader["Id"];
-                        }
-                    }
-
-                    return ID;
                 }
                 else
                 {
-                    command.CommandText =
-                        "SELECT [Id] FROM [IntelProcessor] WHERE [intelSocket] = @intelSocket AND [integratedGraphics] = @integratedGraphics";
+                    command.CommandText = "SELECT [IntelProcessor].[Id] FROM [IntelProcessor] INNER JOIN [Component] ON [userId] = @userId WHERE [intelSocket] = @intelSocket AND [integratedGraphics] = @integratedGraphics";
+                    command.Parameters.AddWithValue("@userId", currentUser.UserId);
                     command.Parameters.AddWithValue("@intelSocket", (component as IntelProcessor).IntelSocket);
                     command.Parameters.AddWithValue("@integratedGraphics", (component as IntelProcessor).IntegratedGraphics != "" ? (component as IntelProcessor).IntegratedGraphics : "");
-
-                    //Save ID
-                    int ID = 0;
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            ID = (int)reader["Id"];
-                        }
-                    }
-
-                    return ID;
                 }
             }
             else if (component is RAM)
             {
                 command.CommandText =
-                    "SELECT [Id] FROM [RAM] WHERE [ramGeneration] = @ramGeneration AND [size] = @size AND [frequency] = @frequency AND [latency] = @latency AND [pieces] = @pieces AND [ecc] = @ecc AND [rgb] = @rgb";
+                    "SELECT [RAM].[Id] FROM [RAM] INNER JOIN [Component] ON [userId] = @userId WHERE [ramGeneration] = @ramGeneration AND [size] = @size AND [frequency] = @frequency AND [latency] = @latency AND [pieces] = @pieces AND [ecc] = @ecc AND [rgb] = @rgb";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@ramGeneration", (component as RAM).RamGeneration);
                 command.Parameters.AddWithValue("@size", (component as RAM).Size);
                 command.Parameters.AddWithValue("@frequency", (component as RAM).Frequency);
@@ -1122,92 +1060,59 @@ namespace Registry.Database.Config
                 command.Parameters.AddWithValue("@pieces", (component as RAM).Pieces);
                 command.Parameters.AddWithValue("@ecc", (component as RAM).Ecc ? 1 : 0);
                 command.Parameters.AddWithValue("@rgb", (component as RAM).Rgb ? 1 : 0);
-
-                //Save ID
-                int ID = 0;
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ID = (int)reader["Id"];
-                    }
-                }
-
-                return ID;
             }
             else if (component is Storage)
             {
                 if (component is HDD)
                 {
                     command.CommandText =
-                        "SELECT [Id] FROM [HDD] WHERE [rpm] = @rpm AND [bufferSize] = @bufferSize";
+                        "SELECT [HDD].[Id] FROM [HDD] INNER JOIN [Component] ON [userId] = @userId WHERE [rpm] = @rpm AND [bufferSize] = @bufferSize";
+                    command.Parameters.AddWithValue("@userId", currentUser.UserId);
                     command.Parameters.AddWithValue("@rpm", (component as HDD).Rpm);
                     command.Parameters.AddWithValue("@bufferSize", (component as HDD).BufferSize);
-
-                    //Save ID
-                    int ID = 0;
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            ID = (int)reader["Id"];
-                        }
-                    }
-
-                    return ID;
-
                 }
                 else
                 {
                     command.CommandText =
-                        "SELECT [Id] FROM [SSD] WHERE [writeSpeed] = @writeSpeed AND [readSpeed] = @readSpeed AND [technology] = @technology";
+                        "SELECT [SSD].[Id] FROM [SSD] INNER JOIN [Component] ON [userId] = @userId WHERE [writeSpeed] = @writeSpeed AND [readSpeed] = @readSpeed AND [technology] = @technology";
+                    command.Parameters.AddWithValue("@userId", currentUser.UserId);
                     command.Parameters.AddWithValue("@writeSpeed", (component as SSD).WriteSpeed);
                     command.Parameters.AddWithValue("@readSpeed", (component as SSD).ReadSpeed);
                     command.Parameters.AddWithValue("@technology", (component as SSD).Technology);
-
-                    //Save ID
-                    int ID = 0;
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            ID = (int)reader["Id"];
-                        }
-                    }
-
-                    return ID;
                 }
             }
             else
             {
-                command.CommandText = "SELECT [Id] FROM [Videocard] WHERE [gb] = @gb AND [design] = @design AND [tdp] = @tdp AND [pcieConnector] = @pcieConnector AND [videoCardLength] = @videoCardLength";
+                command.CommandText = "SELECT [Videocard].[Id] FROM [Videocard] INNER JOIN [Component] ON [userId] = @userId WHERE [gb] = @gb AND [design] = @design AND [tdp] = @tdp AND [pcieConnector] = @pcieConnector AND [videoCardLength] = @videoCardLength";
+                command.Parameters.AddWithValue("@userId", currentUser.UserId);
                 command.Parameters.AddWithValue("@gb", (component as Videocard).Gb);
                 command.Parameters.AddWithValue("@design", (component as Videocard).Design);
                 command.Parameters.AddWithValue("@tdp", (component as Videocard).Tdp);
                 command.Parameters.AddWithValue("@pcieConnector", (component as Videocard).PcieConnector);
                 command.Parameters.AddWithValue("@videoCardLength", (component as Videocard).VideoCardLength);
-
-                //Save ID
-                int ID = 0;
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ID = (int)reader["Id"];
-                    }
-                }
-                return ID;
             }
+
+            int ID = 0;
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    ID = (int)reader["Id"];
+                    return ID;
+                }
+            }
+
+            return 0;
         }
 
-        internal static void ProcessorModification(Processor fromThisProcessor, Processor toThisProcessor)
+        internal static void ProcessorModification(Processor fromThisProcessor, Processor toThisProcessor, User currentUser)
         {
             Connect(true);
             SqlTransaction transaction = null;
 
             try
             {
-                int i = SelectID(fromThisProcessor);
+                int i = SelectID(fromThisProcessor, currentUser);
                 command.Parameters.Clear();
                 transaction = connection.BeginTransaction("Modification");
                 command.Transaction = transaction;
@@ -1219,14 +1124,14 @@ namespace Registry.Database.Config
                 command.Parameters.AddWithValue("@serialNumber", toThisProcessor.SerialNumber != "" ? fromThisProcessor.SerialNumber : "");
                 command.Parameters.AddWithValue("@price", toThisProcessor.Price);
                 command.Parameters.AddWithValue("@dateOfPurchase", toThisProcessor.DateOfPurchase);
-                command.Parameters.AddWithValue("@text", toThisProcessor.Text == "" ? "" : fromThisProcessor.Text);
+                command.Parameters.AddWithValue("@text", toThisProcessor.Text == "" ? "" : toThisProcessor.Text);
                 command.Parameters.AddWithValue("@warranty", toThisProcessor.Warranty);
 
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
 
                 command.CommandText =
-                    "UPDATE [Processor] SET [Id] = @Id, [l2Cache] = @l2Cache, [l3Cache] = @l3Cache, [cores] = @cores, [threads] = @threads, [process] = @process, [frequency] = @frequency, [turboFrequency] = @turboFrequency, [tdp] = @tdp WHERE [Id] = @Id";
+                    "UPDATE [Processor] SET [l2Cache] = @l2Cache, [l3Cache] = @l3Cache, [cores] = @cores, [threads] = @threads, [process] = @process, [frequency] = @frequency, [turboFrequency] = @turboFrequency, [tdp] = @tdp WHERE [Id] = @Id";
                 command.Parameters.AddWithValue("@Id", i);
                 command.Parameters.AddWithValue("@l2Cache", (int)(toThisProcessor as Processor).L2Cache);
                 command.Parameters.AddWithValue("@l3Cache", (int)(toThisProcessor as Processor).L3Cache);
@@ -1239,7 +1144,6 @@ namespace Registry.Database.Config
 
                 command.ExecuteNonQuery();
                 command.Parameters.Clear();
-
                 if (fromThisProcessor is AMDProcessor)
                 {
                     if (toThisProcessor is IntelProcessor)
@@ -1250,16 +1154,55 @@ namespace Registry.Database.Config
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
 
-                        {
-                            command.CommandText =
-                                "INSERT INTO [IntelProcessor] VALUES (@Id, @intelSocket, @integratedGraphics)";
-                            command.Parameters.AddWithValue("@Id", i);
-                            command.Parameters.AddWithValue("@intelSocket", (toThisProcessor as IntelProcessor).IntelSocket);
-                            command.Parameters.AddWithValue("@integratedGraphics", (toThisProcessor as IntelProcessor).IntegratedGraphics != "" ? (toThisProcessor as IntelProcessor).IntegratedGraphics : "");
+                        command.CommandText =
+                            "INSERT INTO [IntelProcessor] VALUES (@Id, @intelSocket, @integratedGraphics)";
+                        command.Parameters.AddWithValue("@Id", i);
+                        command.Parameters.AddWithValue("@intelSocket", (toThisProcessor as IntelProcessor).IntelSocket);
+                        command.Parameters.AddWithValue("@integratedGraphics", (toThisProcessor as IntelProcessor).IntegratedGraphics != "" ? (toThisProcessor as IntelProcessor).IntegratedGraphics : "");
 
-                            command.ExecuteNonQuery();
-                            command.Parameters.Clear();
-                        }
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    else
+                    {
+                        command.CommandText = "UPDATE [AMDProcessor] SET [amdSocket] = @amdSocket, [integratedGraphics] = @integratedGraphics WHERE [Id] = @Id";
+                        command.Parameters.AddWithValue("@Id", i);
+                        command.Parameters.AddWithValue("@amdSocket", (toThisProcessor as AMDProcessor).AmdSocket);
+                        command.Parameters.AddWithValue("@integratedGraphics", (toThisProcessor as AMDProcessor).IntegratedGraphics != "" ? (toThisProcessor as AMDProcessor).IntegratedGraphics : "");
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                }
+                else
+                {
+                    if (toThisProcessor is AMDProcessor)
+                    {
+                        command.CommandText = "DELETE FROM [IntelProcessor] WHERE [Id] = @Id";
+                        command.Parameters.AddWithValue("@Id", i);
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+
+                        command.CommandText =
+                            "INSERT INTO [AMDProcessor] VALUES (@Id, @amdSocket, @integratedGraphics)";
+                        command.Parameters.AddWithValue("@Id", i);
+                        command.Parameters.AddWithValue("@amdSocket", (toThisProcessor as AMDProcessor).AmdSocket);
+                        command.Parameters.AddWithValue("@integratedGraphics", (toThisProcessor as AMDProcessor).IntegratedGraphics != "" ? (toThisProcessor as AMDProcessor).IntegratedGraphics : "");
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+
+                    }
+                    else
+                    {
+                        command.CommandText = "UPDATE [IntelProcessor] SET [intelSocket] = @intelSocket, [integratedGraphics] = @integratedGraphics WHERE [Id] = @Id";
+                        command.Parameters.AddWithValue("@Id", i);
+                        command.Parameters.AddWithValue("@intelSocket", (toThisProcessor as IntelProcessor).IntelSocket);
+                        command.Parameters.AddWithValue("@integratedGraphics", (toThisProcessor as IntelProcessor).IntegratedGraphics != "" ? (toThisProcessor as IntelProcessor).IntegratedGraphics : "");
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
                     }
                 }
 

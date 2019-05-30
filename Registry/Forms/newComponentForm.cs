@@ -58,7 +58,7 @@ namespace Registry.Forms
             }
             else
             {
-                warrantyTimePicker.Value = (DateTime)newComponent.Warranty;
+                warrantyTimePicker.Value = newComponent.Warranty;
             }
             if (modificate is Case)
             {

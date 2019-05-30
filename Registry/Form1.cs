@@ -53,6 +53,8 @@ namespace Registry
             [Description("Date added: Old to new")] AddedUp
         }
 
+        private static User user;
+
         //Static variables that helps us out
         private static List<Components> componentList;
         private static int componentCount = 0;
@@ -85,6 +87,7 @@ namespace Registry
         public Form1(User loggedInUser)
         {
             InitializeComponent();
+            user = loggedInUser;
             //initializing everything we need
 
             //Images for the buttons on flowlayout
@@ -111,7 +114,7 @@ namespace Registry
                 productSearchTextBox, manufacturerSearchTextBox, serialSearchTextBox, textSearchTextBox
             };
 
-            componentList = DBManager.Read();
+            componentList = DBManager.Read(user);
             componentCount = componentList.Count;
             computerList = new List<Computer>();
             if (loggedInUser != null)
@@ -157,21 +160,10 @@ namespace Registry
             //
 
             //Tests
-            Teszt(false);
-            DarkMode(true);
-            //Components fdad = DBManager.ReadCucc();
-
-            //Creating the buttons and putting them on the flowLayoutPanel
-            ComponentButtonRefresh();
-            flowLayoutPanel1.ControlAdded += FlowLayoutPanel1_ControlChanged;
-            flowLayoutPanel1.ControlRemoved += FlowLayoutPanel1_ControlChanged;
-            FlowLayoutPanel1_ControlChanged(null, null);
-
-            
-            if (flowLayoutPanel1.Controls.Count == 0)
+            if (componentList.Count == 0)
             {
                 Teszt(true);
-                componentList = DBManager.Read();
+                componentList = DBManager.Read(user);
                 componentCount = componentList.Count;
                 computerList = new List<Computer>();
                 if (loggedInUser != null)
@@ -181,7 +173,14 @@ namespace Registry
                 checkBox1.Hide();
                 ComponentButtonRefresh();
             }
-            
+            DarkMode(false);
+            //Components fdad = DBManager.ReadCucc();
+
+            //Creating the buttons and putting them on the flowLayoutPanel
+            ComponentButtonRefresh();
+            flowLayoutPanel1.ControlAdded += FlowLayoutPanel1_ControlChanged;
+            flowLayoutPanel1.ControlRemoved += FlowLayoutPanel1_ControlChanged;
+            FlowLayoutPanel1_ControlChanged(null, null);
         }
 
         //Needed to avoid flickering!
@@ -189,7 +188,6 @@ namespace Registry
         {
             internal static readonly int GWL_EXSTYLE = -20;
             internal static readonly int WS_EX_COMPOSITED = 0x02000000;
-            //internal static readonly int WS_EX_CLIENTEDGE = 0x00000200;
 
             [DllImport("user32")]
             internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
@@ -255,18 +253,18 @@ namespace Registry
                 PowerSupply testPowerSupply = new PowerSupply("Chieftec", "PWS-7008A", "", 14000, DateTime.Now, DateTime.Now, new DateTime(2030, 10, 10), "Jó vétel volt!", 700, Efficency.BRONZE80, 6, 2, 6, false, Classes.Components.PowerSupply.FormFactor.SFX);
                 SSD testSsd = new SSD("Samsung", "PM981", "", 50000, DateTime.Now, DateTime.Now, new DateTime(2030, 10, 10), "Jó vétel volt!", 1000, ConnectorType.m2, 100, StorageSize.m22242, 2400, 3400, Technology.MLC);
                 HDD testHdd = new HDD("Western Digital", "HT100CGBA", "", 20000, DateTime.Now, DateTime.Now, new DateTime(2030, 10, 10), "Jó vétel volt!", 2000, ConnectorType.SATA3, 100, StorageSize.h35, 7200, 8);
-                DBManager.Insert(testCase);
-                DBManager.Insert(testMotherboard);
-                DBManager.Insert(testIntelProcessor);
-                DBManager.Insert(testRam);
-                DBManager.Insert(testRamBad);
-                DBManager.Insert(testVideocard);
-                DBManager.Insert(testCooler);
-                DBManager.Insert(testPowerSupply);
-                DBManager.Insert(testSsd);
-                DBManager.Insert(testHdd);
-                DBManager.Insert(testSsd);
-                DBManager.Insert(testHdd);
+                DBManager.Insert(testCase, user);
+                DBManager.Insert(testMotherboard, user);
+                DBManager.Insert(testIntelProcessor, user);
+                DBManager.Insert(testRam, user);
+                DBManager.Insert(testRamBad, user);
+                DBManager.Insert(testVideocard, user);
+                DBManager.Insert(testCooler, user);
+                DBManager.Insert(testPowerSupply, user);
+                DBManager.Insert(testSsd, user);
+                DBManager.Insert(testHdd, user);
+                DBManager.Insert(testSsd, user);
+                DBManager.Insert(testHdd, user);
                 List<SSD> SSDs = new List<SSD>();
                 List<HDD> HDDs = new List<HDD>();
                 List<Videocard> videocards = new List<Videocard>();
@@ -278,7 +276,7 @@ namespace Registry
                 SSDs.Add(testSsd);
                 SSDs.Add(testSsd);
 
-                DBManager.Insert(new Computer(testCase, testMotherboard, testIntelProcessor, rams, videocards, testCooler, testPowerSupply, SSDs, HDDs));
+                DBManager.Insert(new Computer(testCase, testMotherboard, testIntelProcessor, rams, videocards, testCooler, testPowerSupply, SSDs, HDDs), user);
             }
         }
 
@@ -858,7 +856,7 @@ namespace Registry
                     if (newComponentForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newComponentForm.newComponent);
-                        DBManager.Insert(newComponentForm.newComponent);
+                        DBManager.Insert(newComponentForm.newComponent, user);
                     }
 
                     break;
@@ -868,7 +866,7 @@ namespace Registry
                     if (newMotherboardForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newMotherboardForm.newComponent);
-                        DBManager.Insert(newMotherboardForm.newComponent);
+                        DBManager.Insert(newMotherboardForm.newComponent, user);
                     }
 
                     break;
@@ -878,7 +876,7 @@ namespace Registry
                     if (newProcessorForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newProcessorForm.newComponent);
-                        DBManager.Insert(newProcessorForm.newComponent);
+                        DBManager.Insert(newProcessorForm.newComponent, user);
                     }
 
                     break;
@@ -888,7 +886,7 @@ namespace Registry
                     if (newRamForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newRAMForm.newComponent);
-                        DBManager.Insert(newRAMForm.newComponent);
+                        DBManager.Insert(newRAMForm.newComponent, user);
                     }
 
                     break;
@@ -898,7 +896,7 @@ namespace Registry
                     if (newVideoCardForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newVideoCardForm.newComponent);
-                        DBManager.Insert(newVideoCardForm.newComponent);
+                        DBManager.Insert(newVideoCardForm.newComponent, user);
                     }
 
                     break;
@@ -908,7 +906,7 @@ namespace Registry
                     if (newCoolerForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newCoolerForm.newComponent);
-                        DBManager.Insert(newCoolerForm.newComponent);
+                        DBManager.Insert(newCoolerForm.newComponent, user);
                     }
 
                     break;
@@ -918,7 +916,7 @@ namespace Registry
                     if (newPowerSupplyForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newPowerSupplyForm.newComponent);
-                        DBManager.Insert(newPowerSupplyForm.newComponent);
+                        DBManager.Insert(newPowerSupplyForm.newComponent, user);
                     }
 
                     break;
@@ -928,7 +926,7 @@ namespace Registry
                     if (newStorageForm.ShowDialog() == DialogResult.OK)
                     {
                         componentList.Add(newStorageForm.newComponent);
-                        DBManager.Insert(newStorageForm.newComponent);
+                        DBManager.Insert(newStorageForm.newComponent, user);
                     }
 
                     break;
@@ -954,7 +952,7 @@ namespace Registry
                 newComponentForm editComponentForm = new newComponentForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.Modification(componentList[index], newComponentForm.newComponent);
+                    DBManager.Modification(componentList[index], newComponentForm.newComponent, user);
                     componentList.RemoveAt(index);
                     componentList.Add(newComponentForm.newComponent);
                 }
@@ -964,7 +962,7 @@ namespace Registry
                 newCoolerForm editComponentForm = new newCoolerForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.Modification(componentList[index], newCoolerForm.newComponent);
+                    DBManager.Modification(componentList[index], newCoolerForm.newComponent, user);
                     componentList.RemoveAt(index);
                     componentList.Add(newCoolerForm.newComponent);
                 }
@@ -974,7 +972,7 @@ namespace Registry
                 newMotherboardForm editComponentForm = new newMotherboardForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.Modification(componentList[index], newMotherboardForm.newComponent);
+                    DBManager.Modification(componentList[index], newMotherboardForm.newComponent, user);
                     componentList.RemoveAt(index);
                     componentList.Add(newMotherboardForm.newComponent);
                 }
@@ -984,17 +982,18 @@ namespace Registry
                 newPowerSupplyForm editComponentForm = new newPowerSupplyForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.Modification(componentList[index], componentList[index]);
+                    DBManager.Modification(componentList[index], componentList[index], user);
                     componentList.RemoveAt(index);
                     componentList.Add(newPowerSupplyForm.newComponent);
                 }
             }
+            //Itt valami nem okés
             else if (componentList[index] is Processor)
             {
                 newProcessorForm editComponentForm = new newProcessorForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.ProcessorModification(componentList[index] as Processor, newProcessorForm.newComponent as Processor);
+                    DBManager.ProcessorModification(componentList[index] as Processor, newProcessorForm.newComponent as Processor, user);
                     componentList.RemoveAt(index);
                     componentList.Add(newProcessorForm.newComponent);
                 }
@@ -1004,7 +1003,7 @@ namespace Registry
                 newRAMForm editComponentForm = new newRAMForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.Modification(componentList[index], newRAMForm.newComponent);
+                    DBManager.Modification(componentList[index], newRAMForm.newComponent, user);
                     componentList.RemoveAt(index);
                     componentList.Add(newRAMForm.newComponent);
                 }
@@ -1014,7 +1013,7 @@ namespace Registry
                 newStorageForm editComponentForm = new newStorageForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.Modification(componentList[index], newStorageForm.newComponent);
+                    DBManager.Modification(componentList[index], newStorageForm.newComponent, user);
                     componentList.RemoveAt(index);
                     componentList.Add(newStorageForm.newComponent);
                 }
@@ -1024,7 +1023,7 @@ namespace Registry
                 newVideoCardForm editComponentForm = new newVideoCardForm(componentList[index]);
                 if (editComponentForm.ShowDialog() == DialogResult.OK)
                 {
-                    DBManager.Modification(componentList[index], newVideoCardForm.newComponent);
+                    DBManager.Modification(componentList[index], newVideoCardForm.newComponent, user);
                     componentList.RemoveAt(index);
                     componentList.Add(newVideoCardForm.newComponent);
                 }
@@ -1042,7 +1041,7 @@ namespace Registry
                 int index = ComponentIndex(sender);
                 if (index > -1)
                 {
-                    DBManager.Delete(componentList[index]);
+                    DBManager.Delete(componentList[index], user);
                     componentList.RemoveAt(index);
                 }
                 else

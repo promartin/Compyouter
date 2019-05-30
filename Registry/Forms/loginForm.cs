@@ -19,7 +19,8 @@ namespace Registry.Forms
 {
     public partial class loginForm : Form
     {
-        internal static User user { get; set; }
+        private static User user;
+
         private Control[,] fieldGroups;
         private int fieldgroup1D;
         private int fieldgroup2D;
@@ -82,7 +83,15 @@ namespace Registry.Forms
                     }
                 }
             }
+
+            //These lines of code are here to avoid flickering on panel1
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            int style = Form1.NativeWinAPI.GetWindowLong(panel1.Handle, Form1.NativeWinAPI.GWL_EXSTYLE);
+            style |= Form1.NativeWinAPI.WS_EX_COMPOSITED;
+            Form1.NativeWinAPI.SetWindowLong(panel1.Handle, Form1.NativeWinAPI.GWL_EXSTYLE, style);
+            //
         }
+
         private void OnGotFocus(object sender, EventArgs e)
         {
             for (int i = 0; i < fieldgroup1D; i++)
@@ -191,7 +200,7 @@ namespace Registry.Forms
             string a = (sender as TextBox).Text;
             if (e.KeyData == Keys.Back || e.KeyData == Keys.Delete || (sender as TextBox).Text.Length == 1)
             {
-                
+
                 if (sender == userNameTextBox)
                 {
                     userNameTextBox.ForeColor = Color.DarkGray;
@@ -201,7 +210,7 @@ namespace Registry.Forms
                 else if (sender == passwordTextBox)
                 {
                     passwordTextBox.ForeColor = Color.DarkGray;
-                   // passwordPanel.BackColor = Color.DarkGray;
+                    // passwordPanel.BackColor = Color.DarkGray;
                     passwordErrorLabel.Hide();
                 }
                 else if (sender == registerPass)
