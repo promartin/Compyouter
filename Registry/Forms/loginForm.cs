@@ -36,7 +36,6 @@ namespace Registry.Forms
 
         private bool wePositionedThem;
         private bool loginPage;
-        private bool registerPage;
 
 
         #region Draggable surfaces
@@ -204,25 +203,21 @@ namespace Registry.Forms
                 if (sender == userNameTextBox)
                 {
                     userNameTextBox.ForeColor = Color.DarkGray;
-                    //userPanel.BackColor = Color.DarkGray;
                     userErrorLabel.Hide();
                 }
                 else if (sender == passwordTextBox)
                 {
                     passwordTextBox.ForeColor = Color.DarkGray;
-                    // passwordPanel.BackColor = Color.DarkGray;
                     passwordErrorLabel.Hide();
                 }
                 else if (sender == registerPass)
                 {
                     registerPass.ForeColor = Color.DarkGray;
-                    //registerPassPanel.BackColor = Color.DarkGray;
                     confirmErrorLabel?.Hide();
                 }
                 else if (sender == confirmTextBox)
                 {
                     confirmTextBox.ForeColor = Color.DarkGray;
-                    //confirmPanel.BackColor = Color.DarkGray;
                     confirmErrorLabel?.Hide();
                 }
             }
@@ -234,7 +229,6 @@ namespace Registry.Forms
             if (registerLabel.Text == "You haven't registered yet? Register!")
             {
                 SetExistingForRegister();
-                registerPage = true;
                 loginPage = false;
 
 
@@ -410,11 +404,9 @@ namespace Registry.Forms
 
                         confirmLabel.ForeColor = Color.Red;
                         confirmPanel.BackColor = Color.Red;
-                        //confirmTextBox.ForeColor = Color.Red;
 
                         registerPassLabel.ForeColor = Color.Red;
                         registerPassPanel.BackColor = Color.Red;
-                        //registerPass.ForeColor = Color.Red;
 
                         excpetLabels.Add(confirmLabel);
                         excpetLabels.Add(confirmErrorLabel);
@@ -426,7 +418,6 @@ namespace Registry.Forms
 
         private void SetEverythingBack()
         {
-            registerPage = false;
             loginPage = true;
 
             userNameTextBox.Focus();
@@ -594,11 +585,16 @@ namespace Registry.Forms
                 {
                     loginButton.PerformClick();
                 }
-                else if (registerPage)
+                else
                 {
                     RegisterLabel_Click(sender, e);
                 }
             }
+        }
+
+        private void ForgotPasswordLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

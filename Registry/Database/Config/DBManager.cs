@@ -356,7 +356,7 @@ namespace Registry.Database.Config
                         command.Parameters.Clear();
 
                         command.CommandText =
-                            "INSERT INTO [Users] VALUES (@userName, @email, @password)";
+                            "INSERT INTO [Users] VALUES (@userName, @email, @password) ADD DATE_ADDED TIMESTAMP DEFAULT CURRENT_TIMESTAMP";
                         command.Parameters.AddWithValue("@userName", registerUser.UserName);
                         command.Parameters.AddWithValue("@email", registerUser.Email);
                         command.Parameters.AddWithValue("@password", PasswordHash.HashPassword(registerUser.Password));
@@ -1210,8 +1210,7 @@ namespace Registry.Database.Config
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                throw new DBError("Processor modification error!", e);
             }
 
             Disconnect();

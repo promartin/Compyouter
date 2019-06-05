@@ -181,6 +181,7 @@
             this.forgotPasswordLabel.Size = new System.Drawing.Size(122, 15);
             this.forgotPasswordLabel.TabIndex = 9;
             this.forgotPasswordLabel.Text = "Forgot my password!";
+            this.forgotPasswordLabel.Click += new System.EventHandler(this.ForgotPasswordLabel_Click);
             // 
             // passwordErrorLabel
             // 
