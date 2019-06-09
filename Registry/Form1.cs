@@ -173,7 +173,7 @@ namespace Registry
                 checkBox1.Hide();
                 ComponentButtonRefresh();
             }
-            DarkMode(false);
+            DarkMode(true);
             //Components fdad = DBManager.ReadCucc();
 
             //Creating the buttons and putting them on the flowLayoutPanel

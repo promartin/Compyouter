@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Windows.Forms;
 using Registry.Classes.Components;
 using Registry.Classes.Components.Case;
@@ -354,12 +355,15 @@ namespace Registry.Database.Config
                     if (usersWithThisEmail == 0)
                     {
                         command.Parameters.Clear();
+                        SqlDateTime date = DateTime.Now;
 
                         command.CommandText =
-                            "INSERT INTO [Users] VALUES (@userName, @email, @password) ADD DATE_ADDED TIMESTAMP DEFAULT CURRENT_TIMESTAMP";
+                            "INSERT INTO [Users] VALUES (@userName, @email, @password, @status, @registerDate)";
                         command.Parameters.AddWithValue("@userName", registerUser.UserName);
                         command.Parameters.AddWithValue("@email", registerUser.Email);
                         command.Parameters.AddWithValue("@password", PasswordHash.HashPassword(registerUser.Password));
+                        command.Parameters.AddWithValue("@status", "unconfirmed");
+                        command.Parameters.AddWithValue("@registerDate", date);
 
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
